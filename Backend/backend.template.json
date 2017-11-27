@@ -4,16 +4,10 @@
     "parameters": {
         "templatesBaseUri": {
             "type": "string",
-            "defaultValue": "https://raw.githubusercontent.com/DFE-Digital/login.dfe.infrastructure/master/",
-            "metadata": {
-                "description": "The base url that will be used when building template urls"
-            }
+            "defaultValue": "https://raw.githubusercontent.com/DFE-Digital/login.dfe.infrastructure/master/"
         },
         "appServicePlanName": {
-            "type": "string",
-            "metadata": {
-                "description": "The name of the App Service Plan"
-            }
+            "type": "string"
         },
         "appServicePlanSku": {
             "type": "object",
@@ -23,16 +17,10 @@
                 "size": "B1",
                 "family": "B",
                 "capacity": 1
-            },
-            "metadata": {
-                "description": "The SKU to use when building the App Service Plan"
             }
         },
         "redisCacheName": {
-            "type": "string",
-            "metadata": {
-                "description": "The name of the Redis Cache"
-            }
+            "type": "string"
         },
         "appServiceNames": {
             "type": "array"
@@ -51,9 +39,6 @@
                 "name": "Standard",
                 "family": "C",
                 "capacity": 1
-            },
-            "metadata": {
-                "description": "The sku of the redis cache"
             }
         }
     },
@@ -113,7 +98,7 @@
         },
         {
             "apiVersion": "2017-05-10",
-            "name": "AppServicePlan",
+            "name": "RedisCache",
             "type": "Microsoft.Resources/deployments",
             "properties": {
                 "mode": "Incremental",
