@@ -3,10 +3,16 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "appServicePlanName": {
-            "type": "string"
+            "type": "string",
+            "metadata": {
+                "description": "The name of the App Service Plan"
+            }
         },
         "appServicePlanSku": {
-            "type": "object"
+            "type": "object",
+            "metadata": {
+                "description": "The SKU to use when building the App Service Plan"
+            }
         }
     },
     "variables": {},
@@ -16,7 +22,10 @@
             "name": "[parameters('appServicePlanName')]",
             "apiVersion": "2016-09-01",
             "location": "[resourceGroup().location]",
-            "sku": "[parameters('appServicePlanSku')]"
+            "sku": "[parameters('appServicePlanSku')]",
+            "properties":{
+                "name": "[parameters('appServicePlanName')]"
+           }
         }
     ],
     "outputs": {}
