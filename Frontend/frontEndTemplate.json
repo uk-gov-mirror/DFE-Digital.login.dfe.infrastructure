@@ -1,0 +1,86 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "templatesBaseUri": {
+            "type": "string",
+            "defaultValue": "https://raw.githubusercontent.com/DFE-Digital/login.dfe.infrastructure/master/"
+        },
+        "appServicePlanName": {
+            "type": "string"
+        },
+        "appServicePlanSku": {
+            "type": "object",
+            "defaultValue": {
+                "name": "B1",
+                "tier": "Basic",
+                "size": "B1",
+                "family": "B",
+                "capacity": 1
+            }
+        },
+        "appServiceNames": {
+            "type": "array"
+        },
+        "nodeVersion": {
+            "type": "string",
+            "defaultValue": "8.9.0",
+            "allowedValues": [
+                "8.4.0",
+                "8.9.0"
+            ]
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "apiVersion": "2017-05-10",
+            "name": "AppServicePlan",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('templatesBaseUri'), 'Shared/app-service-plan.json')]"
+                },
+                "parameters": {
+                    "appServicePlanName": {
+                        "value": "[parameters('appServicePlanName')]"
+                    },
+                    "appServicePlanSku": {
+                        "value": "[parameters('appServicePlanSku')]"
+                    }
+                }
+            }
+        },
+        {
+            "apiVersion": "2017-05-10",
+            "name": "[concat('AppService', copyIndex(1))]",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('templatesBaseUri'), 'Shared/app-service.json')]"
+                },
+                "parameters": {
+                    "nodeVersion": {
+                        "value": "[parameters('nodeVersion')]"
+                    },
+                    "appServicePlanName": {
+                        "value": "[parameters('appServicePlanName')]"
+                    },
+                    "appServiceName": {
+                        "value": "[parameters('appServiceNames')[copyIndex()]]"
+                    }
+                }
+            },
+            "copy": {
+                "name": "appservicecopy",
+                "count": "[length(parameters('appServiceNames'))]"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/deployments', 'AppServicePlan')]"
+            ]
+        }
+    ],
+    "outputs": {}
+}
