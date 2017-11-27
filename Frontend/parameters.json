@@ -1,0 +1,31 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "templatesBaseUri": {
+            "value": "https://raw.githubusercontent.com/DFE-Digital/login.dfe.infrastructure/master/"
+        },
+        "appServicePlanName": {
+            "value": "dfe-appServicePlan1"
+        },
+        "appServiceNames": {
+            "value": [
+                "dfe-appService1",
+                "dfe-appService2",
+                "dfe-appService3"
+            ]
+        },
+        "appServicePlanSku": {
+            "value": {
+                "name": "B1",
+                "tier": "Basic",
+                "size": "B1",
+                "family": "B",
+                "capacity": 1
+            }
+        },
+        "nodeVersion": {
+            "value": "8.9.0"
+        }
+    }
+}
