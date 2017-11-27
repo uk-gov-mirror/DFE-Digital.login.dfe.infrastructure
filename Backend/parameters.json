@@ -7,13 +7,6 @@
         },
         "redisCacheName": {
             "value": "__REDISCACHENAME__"
-        },
-        "redisCacheSku": {
-            "value": {
-                "name": "Standard",
-                "family": "C",
-                "capacity": 1
-            }
         }
     }
 }
