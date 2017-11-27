@@ -3,16 +3,27 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "appServiceName": {
-            "type": "string"
+            "type": "string",
+            "metadata":{
+                "description": "The name of the App Service"
+            }
         },
         "appServicePlanName": {
-            "type": "string"
+            "type": "string",
+            "metadata":{
+                "description": "The name of the App Service Plan"
+            }
         },
         "nodeVersion": {
-            "type": "string"
+            "type": "string",
+            "metadata": {
+                "description": "The default NodeJS version that the App Service will run"
+            }
         }
     },
-    "variables": {},
+    "variables": {
+        "appServicePlanId": "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlanName'))]"
+    },
     "resources": [
         {
             "type": "Microsoft.Web/sites",
@@ -20,7 +31,7 @@
             "apiVersion": "2016-08-01",
             "location": "[resourceGroup().location]",
             "properties": {
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlanName'))]",
+                "serverFarmId": "[variables('appServicePlanId')]",
                 "siteConfig": {
                     "appSettings": [
                         {
