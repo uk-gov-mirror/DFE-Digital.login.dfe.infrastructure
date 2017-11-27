@@ -7,6 +7,19 @@
         },
         "redisCacheName": {
             "value": "__REDISCACHENAME__"
+        },
+        "appServicePlanName": {
+            "value": "__APPSERVICEPLANNAME__"
+        },
+        "appServiceNames": {
+            "value": [
+                "__APPSERVICE1__",
+                "__APPSERVICE2__",
+                "__APPSERVICE3__"
+            ]
+        },
+        "nodeVersion": {
+            "value": "8.9.0"
         }
     }
 }
