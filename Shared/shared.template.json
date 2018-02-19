@@ -1,0 +1,207 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "templatesBaseUri": {
+      "type": "string",
+      "defaultValue": "https://raw.githubusercontent.com/DFE-Digital/login.dfe.infrastructure/master/"
+    },
+    "appServicePlanName": {
+      "type": "string"
+    },
+    "appServicePlanSku": {
+      "type": "object",
+      "defaultValue": {
+        "name": "B1",
+        "tier": "Basic",
+        "size": "B1",
+        "family": "B",
+        "capacity": 1
+      }
+    },
+    "redisCacheName": {
+      "type": "string"
+    },
+    "redisCacheSku": {
+      "type": "object",
+      "defaultValue": {
+        "name": "Standard",
+        "family": "C",
+        "capacity": 1
+      }
+    },
+    "sqlAdministratorLogin": {
+      "type": "string",
+      "metadata": {
+        "description": "The admin user of the SQL Server"
+      }
+    },
+    "sqlAdministratorLoginPassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "The password of the admin user of the SQL Server"
+      }
+    },
+    "sqlserverName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the SQL Server"
+      }
+    },
+    "databaseNames": {
+      "type": "array"
+  },
+    "transparentDataEncryption": {
+      "type": "string",
+      "allowedValues": [
+        "Enabled",
+        "Disabled"
+      ],
+      "defaultValue": "Enabled",
+      "metadata": {
+        "description": "Enable or disable Transparent Data Encryption (TDE) for the database."
+      }
+    },
+    "EPGWIP": {
+      "type": "string",
+      "metadata": {
+        "description": "Firewall IP"
+      }
+    },
+    "CHGWIP": {
+      "type": "string",
+      "metadata": {
+        "description": "Firewall IP"
+      }
+    }
+  },
+  "variables": {
+    "redisTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/redis-cache.json')]",
+    "appServicePlanTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/app-service-plan.json')]",
+    "azureSQLTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/azure-sql.json')]",
+    "databaseTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/database.json')]"
+  },
+  "resources": [{
+      "apiVersion": "2017-05-10",
+      "name": "AppServicePlan",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('appServicePlanTemplateUri')]"
+        },
+        "parameters": {
+          "appServicePlanName": {
+            "value": "[parameters('appServicePlanName')]"
+          },
+          "appServicePlanSku": {
+            "value": "[parameters('appServicePlanSku')]"
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "2017-05-10",
+      "name": "RedisCache",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('redisTemplateUri')]"
+        },
+        "parameters": {
+          "redisCacheName": {
+            "value": "[parameters('redisCacheName')]"
+          },
+          "redisCacheSku": {
+            "value": "[parameters('redisCacheSku')]"
+          }
+        }
+      }
+    },
+    {
+      "name": "[parameters('sqlserverName')]",
+      "type": "Microsoft.Sql/servers",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "displayName": "SqlServer"
+      },
+      "apiVersion": "2014-04-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('azureSQLTemplateUri')]",
+          "administratorLogin": "[parameters('sqlAdministratorLogin')]",
+          "administratorLoginPassword": "[parameters('sqlAdministratorLoginPassword')]",
+          "version": "12.0"
+        },
+        "resources": [{
+            "name": "[concat('database', copyIndex(1))]",
+            "type": "Microsoft.Sql/servers/databases",
+            "location": "[resourceGroup().location]",
+            "tags": {
+              "displayName": "Database"
+            },
+            "apiVersion": "2014-04-01",
+            "properties": {
+              "mode": "Incremental",
+              "templateLink": {
+                "uri": "[variables('databaseTemplateUri')]"
+              },
+              "edition": "Basic",
+              "collation": "SQL_Latin1_General_CP1_CI_AS",
+              "maxSizeBytes": "1073741824",
+              "requestedServiceObjectiveName": "Basic"
+            },
+            "copy": {
+              "name": "databasecopy",
+              "count": "[length(parameters('databaseNames'))]"
+          },
+            "dependsOn": [
+              "[parameters('sqlServerName')]"
+            ],
+            "resources": [{
+              "comments": "Transparent Data Encryption",
+              "name": "current",
+              "type": "transparentDataEncryption",
+              "apiVersion": "2014-04-01",
+              "properties": {
+                "status": "[parameters('transparentDataEncryption')]"
+              },
+              "dependsOn": [
+                "databasecopy"
+              ]
+            }]
+          },
+          {
+            "type": "firewallRules",
+            "apiVersion": "2014-04-01",
+            "dependsOn": [
+              "[parameters('sqlserverName')]"
+            ],
+            "location": "[resourceGroup().location]",
+            "name": "CHGWIP",
+            "properties": {
+              "endIpAddress": "[parameters('CHGWIP')]",
+              "startIpAddress": "[parameters('CHGWIP')]"
+            }
+          },
+          {
+            "type": "firewallRules",
+            "apiVersion": "2014-04-01",
+            "dependsOn": [
+              "[parameters('sqlserverName')]"
+            ],
+            "location": "[resourceGroup().location]",
+            "name": "EPGWIP",
+            "properties": {
+              "endIpAddress": "[parameters('EPGWIP')]",
+              "startIpAddress": "[parameters('EPGWIP')]"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "outputs": {}
+}

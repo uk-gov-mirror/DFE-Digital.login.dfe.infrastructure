@@ -1,0 +1,41 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "templatesBaseUri": {
+            "value": "https://raw.githubusercontent.com/DFE-Digital/login.dfe.infrastructure/master/"
+        },
+        "redisCacheName": {
+            "value": ""
+        },
+        "appServicePlanName": {
+            "value": ""
+        },
+        "sqlAdministratorLogin": {
+            "value": ""
+          },
+          "sqlAdministratorLoginPassword": {		
+            "value": ""	
+          },
+          "sqlserverName": {
+            "value": ""
+          },
+          "databaseNames": {
+              "value": [
+                  "__audit_db__",
+                  "__organisations_db__",
+                  "__directories_db__"
+              ]
+          },
+          "transparentDataEncryption": {		
+          "value": ""		
+          },
+          "CHGWIP": {
+            "value": ""
+          },
+          "EPGWIP": {
+            "value": ""
+          }
+    }
+}
+

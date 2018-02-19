@@ -1,0 +1,51 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "databaseName": {
+        "type": "string",
+        "metadata": {
+          "description": "The name of the database"
+        }
+      },
+      "transparentDataEncryption": {
+        "type": "string",
+        "allowedValues": [
+          "Enabled",
+          "Disabled"
+        ],
+        "defaultValue": "Enabled",
+        "metadata": {
+          "description": "Enable or disable Transparent Data Encryption (TDE) for the database."
+        }
+      }
+    },
+      "resources": [{
+          "name": "[parameters('databaseName')]",
+          "type": "Microsoft.Sql/servers/databases",
+          "location": "[resourceGroup().location]",
+          "tags": {
+            "displayName": "Database"
+          },
+          "apiVersion": "2014-04-01",
+          "properties": {
+            "edition": "Basic",
+            "collation": "SQL_Latin1_General_CP1_CI_AS",
+            "maxSizeBytes": "1073741824",
+            "requestedServiceObjectiveName": "Basic"
+          },
+          "resources": [{
+            "comments": "Transparent Data Encryption",
+            "name": "current",
+            "type": "transparentDataEncryption",
+            "apiVersion": "2014-04-01",
+            "properties": {
+              "status": "[parameters('transparentDataEncryption')]"
+            },
+            "dependsOn": [
+              "[parameters('databaseName')]"
+            ]
+          }]
+        }
+      ]
+  }
