@@ -198,7 +198,7 @@
           "status": "[parameters('transparentDataEncryption')]"
         },
         "dependsOn": [
-          "[concat(parameters('sqlserverName'),'/',parameters('databaseNames'))]"
+          "[parameters('databaseNames')[copyIndex()]]"
         ]
       }]
     }
