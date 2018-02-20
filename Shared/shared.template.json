@@ -50,7 +50,7 @@
     },
     "databaseNames": {
       "type": "array"
-  },
+    },
     "transparentDataEncryption": {
       "type": "string",
       "allowedValues": [
@@ -136,44 +136,6 @@
           "version": "12.0"
         },
         "resources": [{
-            "name": "[concat(parameters('databaseNames')[copyIndex()])]",
-            "type": "Microsoft.Sql/servers/databases",
-            "location": "[resourceGroup().location]",
-            "tags": {
-              "displayName": "Database"
-            },
-            "apiVersion": "2014-04-01",
-            "properties": {
-              "mode": "Incremental",
-              "templateLink": {
-                "uri": "[variables('databaseTemplateUri')]"
-              },
-              "edition": "Basic",
-              "collation": "SQL_Latin1_General_CP1_CI_AS",
-              "maxSizeBytes": "1073741824",
-              "requestedServiceObjectiveName": "Basic"
-            },
-            "copy": {
-              "name": "databasecopy",
-              "count": "[length(parameters('databaseNames'))]"
-          },
-            "dependsOn": [
-              "[parameters('sqlServerName')]"
-            ],
-            "resources": [{
-              "comments": "Transparent Data Encryption",
-              "name": "current",
-              "type": "transparentDataEncryption",
-              "apiVersion": "2014-04-01",
-              "properties": {
-                "status": "[parameters('transparentDataEncryption')]"
-              },
-              "dependsOn": [
-                "databasecopy"
-              ]
-            }]
-          },
-          {
             "type": "firewallRules",
             "apiVersion": "2014-04-01",
             "dependsOn": [
@@ -201,6 +163,44 @@
           }
         ]
       }
+    },
+    {
+      "name": "[concat(parameters('sqlserverName'),'/',parameters('databaseNames')[copyIndex()])]",
+      "type": "Microsoft.Sql/servers/databases",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "displayName": "Database"
+      },
+      "apiVersion": "2014-04-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('databaseTemplateUri')]"
+        },
+        "edition": "Basic",
+        "collation": "SQL_Latin1_General_CP1_CI_AS",
+        "maxSizeBytes": "1073741824",
+        "requestedServiceObjectiveName": "Basic"
+      },
+      "copy": {
+        "name": "databasecopy",
+        "count": "[length(parameters('databaseNames'))]"
+      },
+      "dependsOn": [
+        "[parameters('sqlServerName')]"
+      ],
+      "resources": [{
+        "comments": "Transparent Data Encryption",
+        "name": "current",
+        "type": "transparentDataEncryption",
+        "apiVersion": "2014-04-01",
+        "properties": {
+          "status": "[parameters('transparentDataEncryption')]"
+        },
+        "dependsOn": [
+          "databasecopy"
+        ]
+      }]
     }
   ],
   "outputs": {}
