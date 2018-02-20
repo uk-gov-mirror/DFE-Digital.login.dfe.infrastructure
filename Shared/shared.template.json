@@ -196,10 +196,7 @@
         "apiVersion": "2014-04-01",
         "properties": {
           "status": "[parameters('transparentDataEncryption')]"
-        },
-        "dependsOn": [
-          "databasecopy"
-        ]
+        }
       }]
     }
   ],
