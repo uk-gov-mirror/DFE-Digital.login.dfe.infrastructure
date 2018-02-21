@@ -81,7 +81,8 @@
     "azureSQLTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/azure-sql.json')]",
     "databaseTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/database.json')]"
   },
-  "resources": [{
+  "resources": [
+    {
       "apiVersion": "2017-05-10",
       "name": "AppServicePlan",
       "type": "Microsoft.Resources/deployments",
@@ -120,87 +121,61 @@
       }
     },
     {
-      "name": "[parameters('sqlserverName')]",
-      "type": "Microsoft.Sql/servers",
-      "location": "[resourceGroup().location]",
-      "tags": {
-        "displayName": "SqlServer"
-      },
+      "name": "SQLServer",
+      "type": "Microsoft.Resources/deployments",
       "apiVersion": "2014-04-01",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[variables('azureSQLTemplateUri')]",
-          "administratorLogin": "[parameters('sqlAdministratorLogin')]",
-          "administratorLoginPassword": "[parameters('sqlAdministratorLoginPassword')]",
-          "version": "12.0"
+          "uri": "[variables('azureSQLTemplateUri')]"
         },
-        "resources": [{
-            "type": "firewallRules",
-            "apiVersion": "2014-04-01",
-            "dependsOn": [
-              "[parameters('sqlserverName')]"
-            ],
-            "location": "[resourceGroup().location]",
-            "name": "CHGWIP",
-            "properties": {
-              "endIpAddress": "[parameters('CHGWIP')]",
-              "startIpAddress": "[parameters('CHGWIP')]"
-            }
+        "parameters": {
+          "sqlAdministratorLogin": {
+            "value": "[parameters('sqlAdministratorLogin')]"
           },
-          {
-            "type": "firewallRules",
-            "apiVersion": "2014-04-01",
-            "dependsOn": [
-              "[parameters('sqlserverName')]"
-            ],
-            "location": "[resourceGroup().location]",
-            "name": "EPGWIP",
-            "properties": {
-              "endIpAddress": "[parameters('EPGWIP')]",
-              "startIpAddress": "[parameters('EPGWIP')]"
-            }
+          "sqlAdministratorLoginPassword": {
+            "value": "[parameters('sqlAdministratorLoginPassword')]"
+          },
+          "sqlserverName": {
+            "value": "[parameters('sqlserverName')]"
+          },
+          "EPGWIP": {
+            "value": "[parameters('EPGWIP')]"
+          },
+          "CHGWIP": {
+            "value": "[parameters('CHGWIP')]"
           }
-        ]
+        }
       }
     },
     {
-      "name": "[concat(parameters('sqlserverName'),'/',parameters('databaseNames')[copyIndex()])]",
-      "type": "Microsoft.Sql/servers/databases",
-      "location": "[resourceGroup().location]",
-      "tags": {
-        "displayName": "Database"
-      },
+      "name": "[parameters('databaseNames')[copyIndex()]]",
+      "type": "Microsoft.Resources/deployments",
       "apiVersion": "2014-04-01",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
           "uri": "[variables('databaseTemplateUri')]"
         },
-        "edition": "Basic",
-        "collation": "SQL_Latin1_General_CP1_CI_AS",
-        "maxSizeBytes": "1073741824",
-        "requestedServiceObjectiveName": "Basic"
+        "parameters": {
+          "databaseName": {
+            "value": "[parameters('databaseNames')[copyIndex()]]"
+          },
+          "transparentDataEncryption": {
+            "value": "[parameters('transparentDataEncryption')]"
+          },
+          "sqlserverName": {
+            "value": "[parameters('sqlserverName')]"
+          }
+        }
       },
       "copy": {
         "name": "databasecopy",
         "count": "[length(parameters('databaseNames'))]"
       },
       "dependsOn": [
-        "[parameters('sqlServerName')]"
-      ],
-      "resources": [{
-        "comments": "Transparent Data Encryption",
-        "name": "current",
-        "type": "transparentDataEncryption",
-        "apiVersion": "2014-04-01",
-        "properties": {
-          "status": "[parameters('transparentDataEncryption')]"
-        },
-        "dependsOn": [
-          "[parameters('databaseNames')[copyIndex()]]"
-        ]
-      }]
+        "SQLServer"
+      ]
     }
   ],
   "outputs": {}
