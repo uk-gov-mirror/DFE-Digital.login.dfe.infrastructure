@@ -123,10 +123,6 @@
     {
       "name": "SQLServer",
       "type": "Microsoft.Resources/deployments",
-      "location": "[resourceGroup().location]",
-      "tags": {
-        "displayName": "SqlServer"
-      },
       "apiVersion": "2014-04-01",
       "properties": {
         "mode": "Incremental",
@@ -155,26 +151,22 @@
     {
       "name": "[parameters('databaseNames')[copyIndex()]]",
       "type": "Microsoft.Resources/deployments",
-      "location": "[resourceGroup().location]",
-      "tags": {
-        "displayName": "Database"
-      },
       "apiVersion": "2014-04-01",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
           "uri": "[variables('databaseTemplateUri')]"
-        }
-      },
-      "parameters": {
-        "databaseName": {
-          "value": "[parameters('databaseNames')[copyIndex()]]"
         },
-        "transparentDataEncryption": {
-          "value": "[parameters('transparentDataEncryption')]"
-        },
-        "sqlserverName": {
-          "value": "[parameters('sqlserverName')]"
+        "parameters": {
+          "databaseName": {
+            "value": "[parameters('databaseNames')[copyIndex()]]"
+          },
+          "transparentDataEncryption": {
+            "value": "[parameters('transparentDataEncryption')]"
+          },
+          "sqlserverName": {
+            "value": "[parameters('sqlserverName')]"
+          }
         }
       },
       "copy": {
@@ -182,7 +174,7 @@
         "count": "[length(parameters('databaseNames'))]"
       },
       "dependsOn": [
-        "[parameters('sqlServerName')]"
+        "SQLServer"
       ]
     }
   ],
