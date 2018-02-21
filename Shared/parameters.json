@@ -11,6 +11,9 @@
         "appServicePlanName": {
             "value": ""
         },
+        "appServicePlanOS": {
+            "value": ""
+        },
         "sqlAdministratorLogin": {
             "value": ""
           },
