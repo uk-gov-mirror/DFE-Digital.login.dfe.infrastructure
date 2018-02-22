@@ -1,4 +1,4 @@
-If NOT EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.TABLES where TABLE_NAME = 'AuditLogs')
+IF NOT EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.TABLES where TABLE_NAME = 'AuditLogs')
     BEGIN
     CREATE TABLE AuditLogs
     (
@@ -11,5 +11,5 @@ If NOT EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.TABLES where TABLE_NAME = 'AuditL
         application varchar(255),
         environment varchar(255)
     );
-    CREATE INDEX level ON [lgn-dev-dir-db].dbo.AuditLogs (level);
+    CREATE INDEX level ON dbo.AuditLogs (level);
 END
