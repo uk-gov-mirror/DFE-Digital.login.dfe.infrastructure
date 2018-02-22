@@ -8,13 +8,6 @@
         "appServicePlanName": {
             "value": "dfe-appServicePlan1"
         },
-        "appServiceNames": {
-            "value": [
-                "dfe-appService1",
-                "dfe-appService2",
-                "dfe-appService3"
-            ]
-        },
         "appServicePlanSku": {
             "value": {
                 "name": "B1",
@@ -23,9 +16,6 @@
                 "family": "B",
                 "capacity": 1
             }
-        },
-        "nodeVersion": {
-            "value": "8.9.0"
         }
     }
 }

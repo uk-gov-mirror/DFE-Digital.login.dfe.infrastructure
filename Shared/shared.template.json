@@ -19,6 +19,12 @@
         "capacity": 1
       }
     },
+    "appServicePlanOS": {
+        "type": "string",
+        "metadata": {
+            "description": "Windows or Linux"
+        }
+    },
     "redisCacheName": {
       "type": "string"
     },
@@ -97,6 +103,9 @@
           },
           "appServicePlanSku": {
             "value": "[parameters('appServicePlanSku')]"
+          },
+          "appServicePlanOS": {
+            "value": "[parameters('appServicePlanOS')]"
           }
         }
       }

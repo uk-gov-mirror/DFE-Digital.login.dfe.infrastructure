@@ -18,34 +18,10 @@
                 "family": "B",
                 "capacity": 1
             }
-        },
-        "redisCacheName": {
-            "type": "string"
-        },
-        "appServiceNames": {
-            "type": "array"
-        },
-        "nodeVersion": {
-            "type": "string",
-            "defaultValue": "8.9.0",
-            "allowedValues": [
-                "8.4.0",
-                "8.9.0"
-            ]
-        },
-        "redisCacheSku": {
-            "type": "object",
-            "defaultValue": {
-                "name": "Standard",
-                "family": "C",
-                "capacity": 1
-            }
         }
     },
     "variables": {
-        "redisTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/redis-cache.json')]",
-        "appServicePlanTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/app-service-plan.json')]",
-        "appServiceTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/app-service.json')]"
+        "appServicePlanTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/app-service-plan.json')]"
     },
     "resources": [
         {
@@ -63,54 +39,6 @@
                     },
                     "appServicePlanSku": {
                         "value": "[parameters('appServicePlanSku')]"
-                    }
-                }
-            }
-        },
-        {
-            "apiVersion": "2017-05-10",
-            "name": "[concat('AppService', copyIndex(1))]",
-            "type": "Microsoft.Resources/deployments",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[variables('appServiceTemplateUri')]"
-                },
-                "parameters": {
-                    "nodeVersion": {
-                        "value": "[parameters('nodeVersion')]"
-                    },
-                    "appServicePlanName": {
-                        "value": "[parameters('appServicePlanName')]"
-                    },
-                    "appServiceName": {
-                        "value": "[parameters('appServiceNames')[copyIndex()]]"
-                    }
-                }
-            },
-            "copy": {
-                "name": "appservicecopy",
-                "count": "[length(parameters('appServiceNames'))]"
-            },
-            "dependsOn": [
-                "[resourceId('Microsoft.Resources/deployments', 'AppServicePlan')]"
-            ]
-        },
-        {
-            "apiVersion": "2017-05-10",
-            "name": "RedisCache",
-            "type": "Microsoft.Resources/deployments",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[variables('redisTemplateUri')]"
-                },
-                "parameters": {
-                    "redisCacheName": {
-                        "value": "[parameters('redisCacheName')]"
-                    },
-                    "redisCacheSku": {
-                        "value": "[parameters('redisCacheSku')]"
                     }
                 }
             }

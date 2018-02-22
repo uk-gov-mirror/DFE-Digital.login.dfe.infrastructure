@@ -5,21 +5,17 @@
         "templatesBaseUri": {
             "value": "https://raw.githubusercontent.com/DFE-Digital/login.dfe.infrastructure/master/"
         },
-        "redisCacheName": {
-            "value": "__REDISCACHENAME__"
-        },
         "appServicePlanName": {
             "value": "__APPSERVICEPLANNAME__"
         },
-        "appServiceNames": {
-            "value": [
-                "__APPSERVICE1__",
-                "__APPSERVICE2__",
-                "__APPSERVICE3__"
-            ]
-        },
-        "nodeVersion": {
-            "value": "8.9.0"
+        "appServicePlanSku": {
+            "value": {
+                "name": "B1",
+                "tier": "Basic",
+                "size": "B1",
+                "family": "B",
+                "capacity": 1
+            }
         }
     }
 }
