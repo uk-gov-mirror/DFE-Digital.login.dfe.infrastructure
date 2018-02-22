@@ -19,6 +19,12 @@
             "metadata": {
                 "description": "Windows or Linux"
             }
+        },
+        "appServicePlanIsLinux" : {
+            "type": "bool",
+            "metadata": {
+                "description": "Whether the App Service Plan is Linux or not"
+            }
         }
     },
     "variables": {},
@@ -31,7 +37,8 @@
             "sku": "[parameters('appServicePlanSku')]",
             "kind": "[parameters('appServicePlanOS')]",
             "properties":{
-                "name": "[parameters('appServicePlanName')]"
+                "name": "[parameters('appServicePlanName')]",
+                "reserved": "[parameters('appServicePlanIsLinux')]"
            }
         }
     ],

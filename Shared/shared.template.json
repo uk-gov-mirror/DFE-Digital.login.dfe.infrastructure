@@ -20,10 +20,16 @@
       }
     },
     "appServicePlanOS": {
-        "type": "string",
-        "metadata": {
-            "description": "Windows or Linux"
-        }
+      "type": "string",
+      "metadata": {
+        "description": "Windows or Linux"
+      }
+    },
+    "appServicePlanIsLinux": {
+      "type": "bool",
+      "metadata": {
+        "description": "Whether the App Service Plan is Linux or not"
+      }
     },
     "redisCacheName": {
       "type": "string"
@@ -106,6 +112,9 @@
           },
           "appServicePlanOS": {
             "value": "[parameters('appServicePlanOS')]"
+          },
+          "appServicePlanIsLinux": {
+            "value": "[parameters('appServicePlanIsLinux')]"
           }
         }
       }
