@@ -6,16 +6,22 @@
             "value": "https://raw.githubusercontent.com/DFE-Digital/login.dfe.infrastructure/master/"
         },
         "appServicePlanName": {
-            "value": "dfe-appServicePlan1"
+            "value": "__AppServicePlanName__"
         },
         "appServicePlanSku": {
             "value": {
-                "name": "B1",
-                "tier": "Basic",
-                "size": "B1",
-                "family": "B",
+                "name": "S1",
+                "tier": "Standard",
+                "size": "S1",
+                "family": "S",
                 "capacity": 1
             }
+        },
+        "appServicePlanOS": {
+            "value": "Windows"
+        },
+        "appServicePlanIsLinux": {
+            "value": "false"
         }
     }
 }
