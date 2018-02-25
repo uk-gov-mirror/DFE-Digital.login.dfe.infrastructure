@@ -32,7 +32,7 @@
         "databaseNames": {
             "value": [
                 "__AuditDBName__",
-                "__organisations_db__",
+                "__DirectoriesDBName__",
                 "__OrganisationsDBName__"
             ]
         },
