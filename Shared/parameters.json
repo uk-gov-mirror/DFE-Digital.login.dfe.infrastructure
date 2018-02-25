@@ -6,16 +6,19 @@
             "value": "https://raw.githubusercontent.com/DFE-Digital/login.dfe.infrastructure/master/"
         },
         "redisCacheName": {
-            "value": ""
+            "value": "__redisCacheName__"
         },
         "appServicePlanName": {
-            "value": ""
+            "value": "__AppServicePlanName__"
         },
         "appServicePlanOS": {
-            "value": ""
+            "value": "Linux"
+        },
+        "appServicePlanIsLinux": {
+            "value": "true"
         },
         "appInsightsName": {
-            "value": ""
+            "value": "__appInsightsName__"
         },
         "sqlAdministratorLogin": {
             "value": ""
@@ -24,32 +27,32 @@
             "value": ""
         },
         "sqlserverName": {
-            "value": ""
+            "value": "__sqlserverName__"
         },
         "databaseNames": {
             "value": [
-                "__audit_db__",
+                "__AuditDBName__",
                 "__organisations_db__",
-                "__directories_db__"
+                "__OrganisationsDBName__"
             ]
         },
         "transparentDataEncryption": {
-            "value": ""
+            "value": "Enabled"
         },
         "storageAccountName": {
-            "value": ""
+            "value": "__storageAccountName__"
         },
         "keyVaultName": {
-            "value": ""
+            "value": "__keyVaultName__"
         },
         "azureSearchName": {
-            "value": ""
+            "value": "__azureSearchName__"
         },
         "CHGWIP": {
-            "value": ""
+            "value": "__CHGWIP__"
         },
         "EPGWIP": {
-            "value": ""
+            "value": "__EPGWIP__"
         }
     }
 }
