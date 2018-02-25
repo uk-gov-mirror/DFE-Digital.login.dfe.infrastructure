@@ -31,6 +31,12 @@
         "description": "Whether the App Service Plan is Linux or not"
       }
     },
+    "appInsightsName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the application insights resource"
+      }
+    },
     "redisCacheName": {
       "type": "string"
     },
@@ -74,6 +80,24 @@
         "description": "Enable or disable Transparent Data Encryption (TDE) for the database."
       }
     },
+    "storageAccountName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the storage account resource"
+      }
+    },
+    "keyVaultName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the Key Vault resource"
+      }
+    },
+    "azureSearchName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the Azure Search resource"
+      }
+    },
     "EPGWIP": {
       "type": "string",
       "metadata": {
@@ -91,7 +115,11 @@
     "redisTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/redis-cache.json')]",
     "appServicePlanTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/app-service-plan.json')]",
     "azureSQLTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/azure-sql.json')]",
-    "databaseTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/database.json')]"
+    "databaseTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/database.json')]",
+    "appInsightsTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/app-insights.json')]",
+    "storageAccountTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/storage-account.json')]",
+    "keyVaultTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/key-vault.json')]",
+    "azureSearchTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/azure-search.json')]"
   },
   "resources": [
     {
@@ -194,6 +222,74 @@
       "dependsOn": [
         "SQLServer"
       ]
+    },
+    {
+      "name": "AppInsights",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2014-04-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('appInsightsTemplateUri')]"
+        },
+        "parameters": {
+          "appInsightsName": {
+            "value": "[parameters('appInsightsName')]"
+          }
+        }
+      },
+      "dependsOn": []
+    },
+    {
+      "name": "StorageAccount",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2014-04-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('storageAccountTemplateUri')]"
+        },
+        "parameters": {
+          "storageAccountName": {
+            "value": "[parameters('storageAccountName')]"
+          }
+        }
+      },
+      "dependsOn": []
+    },
+    {
+      "name": "KeyVault",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2014-04-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('keyVaultTemplateUri')]"
+        },
+        "parameters": {
+          "keyVaultName": {
+            "value": "[parameters('keyVaultName')]"
+          }
+        }
+      },
+      "dependsOn": []
+    },
+    {
+      "name": "AzureSearch",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2014-04-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('azureSearchTemplateUri')]"
+        },
+        "parameters": {
+          "azureSearchName": {
+            "value": "[parameters('azureSearchName')]"
+          }
+        }
+      },
+      "dependsOn": []
     }
   ],
   "outputs": {}

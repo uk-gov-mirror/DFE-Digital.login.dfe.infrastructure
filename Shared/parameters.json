@@ -14,31 +14,42 @@
         "appServicePlanOS": {
             "value": ""
         },
+        "appInsightsName": {
+            "value": ""
+        },
         "sqlAdministratorLogin": {
             "value": ""
-          },
-          "sqlAdministratorLoginPassword": {		
-            "value": ""	
-          },
-          "sqlserverName": {
+        },
+        "sqlAdministratorLoginPassword": {
             "value": ""
-          },
-          "databaseNames": {
-              "value": [
-                  "__audit_db__",
-                  "__organisations_db__",
-                  "__directories_db__"
-              ]
-          },
-          "transparentDataEncryption": {		
-          "value": ""		
-          },
-          "CHGWIP": {
+        },
+        "sqlserverName": {
             "value": ""
-          },
-          "EPGWIP": {
+        },
+        "databaseNames": {
+            "value": [
+                "__audit_db__",
+                "__organisations_db__",
+                "__directories_db__"
+            ]
+        },
+        "transparentDataEncryption": {
             "value": ""
-          }
+        },
+        "storageAccountName": {
+            "value": ""
+        },
+        "keyVaultName": {
+            "value": ""
+        },
+        "azureSearchName": {
+            "value": ""
+        },
+        "CHGWIP": {
+            "value": ""
+        },
+        "EPGWIP": {
+            "value": ""
+        }
     }
 }
-
