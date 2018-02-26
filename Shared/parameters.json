@@ -15,7 +15,7 @@
             "value": "Linux"
         },
         "appServicePlanIsLinux": {
-            "value": "true"
+            "value": true
         },
         "appInsightsName": {
             "value": "__appInsightsName__"
