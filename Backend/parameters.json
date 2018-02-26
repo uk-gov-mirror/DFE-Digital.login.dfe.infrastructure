@@ -6,7 +6,7 @@
             "value": "https://raw.githubusercontent.com/DFE-Digital/login.dfe.infrastructure/master/"
         },
         "appServicePlanName": {
-            "value": "__AppServicePlanName__"
+            "value": "__AppServicePlanNameGreen__"
         },
         "appServicePlanSku": {
             "value": {
@@ -21,7 +21,7 @@
             "value": "app"
         },
         "appServicePlanIsLinux": {
-            "value": "false"
+            "value": false
         }
     }
 }
