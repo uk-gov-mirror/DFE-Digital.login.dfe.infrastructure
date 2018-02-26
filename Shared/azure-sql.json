@@ -81,6 +81,19 @@
           }
         },
         {
+          "type": "firewallRules",
+          "apiVersion": "2014-04-01",
+          "dependsOn": [
+            "[parameters('sqlserverName')]"
+          ],
+          "location": "[resourceGroup().location]",
+          "name": "AllowAllWindowsAzureIps",
+          "properties": {
+            "endIpAddress": "0.0.0.0",
+            "startIpAddress": "0.0.0.0"
+          }
+        },
+        {
           "type": "elasticpools",
           "apiVersion": "2014-04-01",
           "name": "[parameters('elasticPoolName')]",
