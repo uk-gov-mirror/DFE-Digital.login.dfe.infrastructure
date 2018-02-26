@@ -18,7 +18,10 @@
             }
         },
         "appServicePlanOS": {
-            "value": "Windows"
+            "value": "app"
+        },
+        "appServicePlanIsLinux": {
+            "value": "false"
         }
     }
 }
