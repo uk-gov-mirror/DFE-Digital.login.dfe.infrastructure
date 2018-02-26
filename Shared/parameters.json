@@ -9,7 +9,7 @@
             "value": "__redisCacheName__"
         },
         "appServicePlanName": {
-            "value": "__AppServicePlanName-shd__"
+            "value": "__ShdAppServicePlanName__"
         },
         "appServicePlanOS": {
             "value": "Linux"
