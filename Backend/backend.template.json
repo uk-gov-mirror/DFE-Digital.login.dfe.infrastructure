@@ -18,6 +18,18 @@
                 "family": "B",
                 "capacity": 1
             }
+        },
+        "appServicePlanOS": {
+          "type": "string",
+          "metadata": {
+            "description": "Windows or Linux"
+          }
+        },
+        "appServicePlanIsLinux": {
+          "type": "bool",
+          "metadata": {
+            "description": "Whether the App Service Plan is Linux or not"
+          }
         }
     },
     "variables": {
@@ -39,6 +51,12 @@
                     },
                     "appServicePlanSku": {
                         "value": "[parameters('appServicePlanSku')]"
+                    },
+                    "appServicePlanOS": {
+                      "value": "[parameters('appServicePlanOS')]"
+                    },
+                    "appServicePlanIsLinux": {
+                      "value": "[parameters('appServicePlanIsLinux')]"
                     }
                 }
             }
