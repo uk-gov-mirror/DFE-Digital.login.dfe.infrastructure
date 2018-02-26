@@ -20,47 +20,45 @@
             }
         },
         "appServicePlanOS": {
-          "type": "string",
-          "metadata": {
-            "description": "Windows or Linux"
-          }
+            "type": "string",
+            "metadata": {
+                "description": "Windows or Linux"
+            }
         },
         "appServicePlanIsLinux": {
-          "type": "bool",
-          "metadata": {
-            "description": "Whether the App Service Plan is Linux or not"
-          }
+            "type": "bool",
+            "metadata": {
+                "description": "Whether the App Service Plan is Linux or not"
+            }
         }
     },
     "variables": {
         "appServicePlanTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/app-service-plan.json')]"
     },
-    "resources": [
-        {
-            "apiVersion": "2017-05-10",
-            "name": "AppServicePlan",
-            "type": "Microsoft.Resources/deployments",
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[variables('appServicePlanTemplateUri')]"
+    "resources": [{
+        "apiVersion": "2017-05-10",
+        "name": "AppServicePlan",
+        "type": "Microsoft.Resources/deployments",
+        "properties": {
+            "mode": "Incremental",
+            "templateLink": {
+                "uri": "[variables('appServicePlanTemplateUri')]"
+            },
+            "parameters": {
+                "appServicePlanName": {
+                    "value": "[parameters('appServicePlanName')]"
                 },
-                "parameters": {
-                    "appServicePlanName": {
-                        "value": "[parameters('appServicePlanName')]"
-                    },
-                    "appServicePlanSku": {
-                        "value": "[parameters('appServicePlanSku')]"
-                    },
-                    "appServicePlanOS": {
-                      "value": "[parameters('appServicePlanOS')]"
-                    },
-                    "appServicePlanIsLinux": {
-                      "value": "[parameters('appServicePlanIsLinux')]"
-                    }
+                "appServicePlanSku": {
+                    "value": "[parameters('appServicePlanSku')]"
+                },
+                "appServicePlanOS": {
+                    "value": "[parameters('appServicePlanOS')]"
+                },
+                "appServicePlanIsLinux": {
+                    "value": "[parameters('appServicePlanIsLinux')]"
                 }
             }
         }
-    ],
+    }],
     "outputs": {}
 }

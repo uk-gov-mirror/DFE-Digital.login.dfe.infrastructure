@@ -21,7 +21,7 @@
             "value": "Windows"
         },
         "appServicePlanIsLinux": {
-            "value": "False"
+            "value": ""
         }
     }
 }
