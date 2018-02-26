@@ -66,6 +66,12 @@
         "description": "The name of the SQL Server"
       }
     },
+    "elasticPoolName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the SQL Elastic Pool"
+      }
+    },
     "databaseNames": {
       "type": "array"
     },
@@ -185,6 +191,9 @@
           "sqlserverName": {
             "value": "[parameters('sqlserverName')]"
           },
+          "elasticPoolName": {
+            "value": "[parameters('elasticPoolName')]"
+          },
           "EPGWIP": {
             "value": "[parameters('EPGWIP')]"
           },
@@ -212,12 +221,16 @@
           },
           "sqlserverName": {
             "value": "[parameters('sqlserverName')]"
+          },
+          "elasticPoolName": {
+            "value": "[parameters('elasticPoolName')]"
           }
         }
       },
       "copy": {
         "name": "databasecopy",
-        "count": "[length(parameters('databaseNames'))]"
+        "count": "[length(parameters('databaseNames'))]",
+        "mode": "Serial"
       },
       "dependsOn": [
         "SQLServer"

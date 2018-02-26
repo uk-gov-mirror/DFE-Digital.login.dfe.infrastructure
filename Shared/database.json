@@ -8,6 +8,12 @@
         "description": "The name of the database"
       }
     },
+    "elasticPoolName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the SQL Elastic Pool"
+      }
+    },
     "transparentDataEncryption": {
       "type": "string",
       "allowedValues": [
@@ -36,10 +42,9 @@
       },
       "apiVersion": "2014-04-01",
       "properties": {
-        "edition": "Basic",
         "collation": "SQL_Latin1_General_CP1_CI_AS",
         "maxSizeBytes": "1073741824",
-        "requestedServiceObjectiveName": "Basic"
+        "elasticPoolName": "[parameters('elasticPoolName')]"
       },
       "resources": [
         {
