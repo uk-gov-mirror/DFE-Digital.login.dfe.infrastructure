@@ -20,6 +20,12 @@
         "description": "The name of the SQL Server"
       }
     },
+    "elasticPoolName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the SQL Elastic Pool"
+      }
+    },
     "EPGWIP": {
       "type": "string",
       "metadata": {
@@ -73,6 +79,21 @@
             "endIpAddress": "[parameters('EPGWIP')]",
             "startIpAddress": "[parameters('EPGWIP')]"
           }
+        },
+        {
+          "type": "elasticpools",
+          "apiVersion": "2014-04-01",
+          "name": "[parameters('elasticPoolName')]",
+          "location": "[resourceGroup().location]",
+          "properties": {
+            "edition": "Standard",
+            "dtu": "50",
+            "databaseDtuMin": "0",
+            "databaseDtuMax": "50"
+          },
+          "dependsOn": [
+            "[concat('Microsoft.Sql/servers/', parameters('sqlserverName'))]"
+          ]
         }
       ]
     }

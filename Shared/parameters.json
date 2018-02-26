@@ -15,7 +15,7 @@
             "value": "Linux"
         },
         "appServicePlanIsLinux": {
-            "value": "true"
+            "value": true
         },
         "appInsightsName": {
             "value": "__appInsightsName__"
@@ -35,6 +35,9 @@
                 "__DirectoriesDBName__",
                 "__OrganisationsDBName__"
             ]
+        },
+        "elasticPoolName": {
+            "value": "__ShdElasticPoolName__"
         },
         "transparentDataEncryption": {
             "value": "Enabled"
