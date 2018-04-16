@@ -98,6 +98,15 @@
         "description": "Name of the Key Vault resource"
       }
     },
+    "AccessPolicyObjectId": {
+      "type": "string",
+      "metadata": {
+        "description": "ObjectID for the Access Policy"
+      }
+    },
+    "kvsecretsPermissionsList": {
+      "type": "array"
+    },
     "azureSearchName": {
       "type": "string",
       "metadata": {
@@ -282,6 +291,12 @@
         "parameters": {
           "keyVaultName": {
             "value": "[parameters('keyVaultName')]"
+          },
+          "webAppObjectId": {
+            "value": "[parameters('AccessPolicyObjectId')]"
+          },
+          "secretsPermissionsList": {
+            "value": "[parameters('kvSecretsPermissionsList')]"
           }
         }
       },

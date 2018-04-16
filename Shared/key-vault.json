@@ -4,9 +4,25 @@
     "parameters": {
         "keyVaultName": {
             "type": "string"
+        },
+        "AccessPolicyObjectId": {
+          "type": "string"
+        },
+        "secretsPermissionsList": {
+          "type": "array"
         }
     },
-    "variables": {},
+    "variables": {
+        "webAppAccessPolicy": [
+            {
+              "objectId": "[parameters('AccessPolicyObjectId')]",
+              "tenantId": "[subscription().tenantId]",
+              "permissions": {
+                "secrets": "[parameters('secretsPermissionsList')]"
+              }
+            }
+          ]
+    },
     "resources": [
         {
             "type": "Microsoft.KeyVault/vaults",
@@ -15,7 +31,7 @@
             "location": "[resourceGroup().location]",
             "properties": {
                 "enabledForTemplateDeployment": "true",
-                "accessPolicies": [],
+                "accessPolicies": "[variables('webAppAccessPolicy')]",
                 "tenantId": "[subscription().tenantId]",
                 "sku": {
                     "name": "Standard",
