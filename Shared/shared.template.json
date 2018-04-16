@@ -289,7 +289,7 @@
           "keyVaultName": {
             "value": "[parameters('keyVaultName')]"
           },
-          "webAppObjectId": {
+          "AccessPolicyObjectId": {
             "value": "[parameters('AccessPolicyObjectId')]"
           }
         }
