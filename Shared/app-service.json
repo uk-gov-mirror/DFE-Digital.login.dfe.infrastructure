@@ -39,7 +39,9 @@
                             "value": "[parameters('nodeVersion')]"
                         }
                     ],
-                    "alwaysOn": true
+                    "alwaysOn": true,
+                    "httpsOnly": true,
+                    "clientAffinityEnabled": false
                 }
             }
         }
