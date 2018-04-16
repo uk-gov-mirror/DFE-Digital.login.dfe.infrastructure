@@ -51,21 +51,6 @@
         "AccessPolicyObjectId": {
             "value": ""
         },
-        "kvSecretsPermissionsList": {
-          "value": {
-            "keys": [],
-            "secrets": [
-                "Get",
-                "List",
-                "Set",
-                "Delete",
-                "Recover",
-                "Backup",
-                "Restore"
-            ],
-            "certificates": []
-        }
-        },
         "azureSearchName": {
             "value": "__azureSearchName__"
         },

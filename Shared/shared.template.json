@@ -294,9 +294,6 @@
           },
           "webAppObjectId": {
             "value": "[parameters('AccessPolicyObjectId')]"
-          },
-          "secretsPermissionsList": {
-            "value": "[parameters('kvSecretsPermissionsList')]"
           }
         }
       },
