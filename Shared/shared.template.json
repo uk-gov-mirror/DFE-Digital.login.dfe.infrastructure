@@ -104,9 +104,6 @@
         "description": "ObjectID for the Access Policy"
       }
     },
-    "kvsecretsPermissionsList": {
-      "type": "array"
-    },
     "azureSearchName": {
       "type": "string",
       "metadata": {
