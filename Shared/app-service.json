@@ -14,15 +14,28 @@
                 "description": "The name of the App Service Plan"
             }
         },
-        "nodeVersion": {
+        "appServicePlanRG": {
             "type": "string",
             "metadata": {
+                "description": "Resource Group where the ASP lives"
+            }
+        },
+        "nodeVersion": {
+            "type": "string",
+            "defaultValue": "8.9.4",
+            "metadata": {
                 "description": "The default NodeJS version that the App Service will run"
+            }
+        },
+        "appServiceConfigPath": {
+            "type": "string",
+            "metadata": {
+                "description": "JSON string containing app config"
             }
         }
     },
     "variables": {
-        "appServicePlanId": "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlanName'))]"
+        "appServicePlanId": "[resourceId(parameters('appServicePlanRG'),'Microsoft.Web/serverfarms', parameters('appServicePlanName'))]"
     },
     "resources": [
         {
@@ -37,6 +50,10 @@
                         {
                             "name": "WEBSITE_NODE_DEFAULT_VERSION",
                             "value": "[parameters('nodeVersion')]"
+                        },
+                        {
+                            "name": "settings",
+                            "value": "[parameters('appServiceConfigPath')]"
                         }
                     ],
                     "alwaysOn": true,
