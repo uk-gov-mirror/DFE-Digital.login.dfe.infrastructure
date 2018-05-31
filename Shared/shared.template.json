@@ -117,6 +117,19 @@
         "description": "Name of the Azure Search resource"
       }
     },
+    "azureCdnName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the Azure Cdn Profile resource"
+      }
+    },
+    "azureCdnSku": {
+      "type": "string",
+      "defaultValue": "Standard_Verizon",
+      "metadata": {
+        "description": "Sku of the Azure Cdn Profile resource"
+      }
+    },
     "EPGWIP": {
       "type": "string",
       "metadata": {
@@ -169,7 +182,8 @@
     "storageAccountTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/storage-account.json')]",
     "keyVaultTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/key-vault.json')]",
     "azureSearchTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/azure-search.json')]",
-    "postgresTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/postgres.json')]"
+    "postgresTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/postgres.json')]",
+    "azureCdnTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/azure-cdn.json')]"
   },
   "resources": [
     {
@@ -379,9 +393,28 @@
           "postgresDatabases": {
             "value": "[parameters('postgresDatabases')]"
           }
+        },
+        "dependsOn": []
+      }
+    },
+    {
+      "name": "AzureCDN",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2014-04-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('azureCdnTemplateUri')]"
+        },
+        "parameters": {
+          "cdnProfileName": {
+            "value": "[parameters('azureCdnName')]"
+          },
+          "cdnSKU": {
+            "value": "[parameters('azureCdnSku')]"
+          }
         }
-      },
-      "dependsOn": []
+      }
     }
   ],
   "outputs": {}
