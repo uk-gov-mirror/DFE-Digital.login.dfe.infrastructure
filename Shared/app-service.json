@@ -45,6 +45,9 @@
             "location": "[resourceGroup().location]",
             "properties": {
                 "serverFarmId": "[variables('appServicePlanId')]",
+                "clientAffinityEnabled": false,
+                "alwaysOn": false,
+                "httpsOnly": true,
                 "siteConfig": {
                     "appSettings": [
                         {
@@ -55,10 +58,7 @@
                             "name": "settings",
                             "value": "[parameters('appServiceConfigPath')]"
                         }
-                    ],
-                    "clientAffinityEnabled": false,
-                    "alwaysOn": false,
-                    "httpsOnly": true
+                    ]
                 }
             },
             "resources": [
