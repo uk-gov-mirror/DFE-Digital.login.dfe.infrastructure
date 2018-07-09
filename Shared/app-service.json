@@ -35,7 +35,17 @@
         }
     },
     "variables": {
-        "appServicePlanId": "[resourceId(parameters('appServicePlanRG'),'Microsoft.Web/serverfarms', parameters('appServicePlanName'))]"
+        "appServicePlanId": "[resourceId(parameters('appServicePlanRG'),'Microsoft.Web/serverfarms', parameters('appServicePlanName'))]",
+        "appServiceSettings": [
+            {
+                "name": "WEBSITE_NODE_DEFAULT_VERSION",
+                "value": "[parameters('nodeVersion')]"
+            },
+            {
+                "name": "settings",
+                "value": "[parameters('appServiceConfigPath')]"
+            }
+        ]
     },
     "resources": [
         {
@@ -45,22 +55,33 @@
             "location": "[resourceGroup().location]",
             "properties": {
                 "serverFarmId": "[variables('appServicePlanId')]",
+                "clientAffinityEnabled": false,
+                "httpsOnly": true,
                 "siteConfig": {
-                    "appSettings": [
-                        {
-                            "name": "WEBSITE_NODE_DEFAULT_VERSION",
-                            "value": "[parameters('nodeVersion')]"
-                        },
-                        {
-                            "name": "settings",
-                            "value": "[parameters('appServiceConfigPath')]"
-                        }
-                    ],
-                    "alwaysOn": true,
-                    "httpsOnly": true,
-                    "clientAffinityEnabled": false
+                    "appSettings": "[variables('appServiceSettings')]",
+                    "alwaysOn": false
                 }
-            }
+            },
+            "resources": [
+                {
+                    "name": "staging",
+                    "type": "slots",
+                    "apiVersion": "2016-08-01",
+                    "location": "[resourceGroup().location]",
+                    "properties": {
+                        "serverFarmId": "[variables('appServicePlanId')]",
+                        "clientAffinityEnabled": false,
+                        "httpsOnly": true,
+                        "siteConfig": {
+                            "appSettings": "[variables('appServiceSettings')]",
+                            "alwaysOn": false
+                        }
+                    },
+                    "dependsOn": [
+                        "[parameters('appServiceName')]"
+                    ]
+                }
+            ]
         }
     ],
     "outputs": {}
