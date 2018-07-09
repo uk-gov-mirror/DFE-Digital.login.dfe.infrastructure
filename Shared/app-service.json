@@ -56,11 +56,23 @@
                             "value": "[parameters('appServiceConfigPath')]"
                         }
                     ],
+                    "clientAffinityEnabled": false,
                     "alwaysOn": true,
-                    "httpsOnly": true,
-                    "clientAffinityEnabled": false
+                    "httpsOnly": true
                 }
-            }
+            },
+            "resources": [
+                {
+                    "name": "staging",
+                    "type": "slots",
+                    "apiVersion": "2016-08-01",
+                    "location": "[resourceGroup().location]",
+                    "properties": {},
+                    "dependsOn": [
+                        "[parameters('appServiceName')]"
+                    ]
+                }
+            ]
         }
     ],
     "outputs": {}
