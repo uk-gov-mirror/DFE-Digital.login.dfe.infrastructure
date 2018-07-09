@@ -20,10 +20,6 @@
                 "description": "Resource Group where the ASP lives"
             }
         },
-        "appServiceAppSettings": {
-            "type": "array",
-            "defaultValue": []
-        },
         "nodeVersion": {
             "type": "string",
             "defaultValue": "8.9.4",
@@ -39,7 +35,17 @@
         }
     },
     "variables": {
-        "appServicePlanId": "[resourceId(parameters('appServicePlanRG'),'Microsoft.Web/serverfarms', parameters('appServicePlanName'))]"
+        "appServicePlanId": "[resourceId(parameters('appServicePlanRG'),'Microsoft.Web/serverfarms', parameters('appServicePlanName'))]",
+        "appServiceSettings": [
+            {
+                "name": "WEBSITE_NODE_DEFAULT_VERSION",
+                "value": "[parameters('nodeVersion')]"
+            },
+            {
+                "name": "settings",
+                "value": "[parameters('appServiceConfigPath')]"
+            }
+        ]
     },
     "resources": [
         {
@@ -52,7 +58,7 @@
                 "clientAffinityEnabled": false,
                 "httpsOnly": true,
                 "siteConfig": {
-                    "appSettings": "[parameters('appServiceAppSettings')]",
+                    "appSettings": "[variables('appServiceSettings')]",
                     "alwaysOn": false
                 }
             },
@@ -62,7 +68,15 @@
                     "type": "slots",
                     "apiVersion": "2016-08-01",
                     "location": "[resourceGroup().location]",
-                    "properties": {},
+                    "properties": {
+                        "serverFarmId": "[variables('appServicePlanId')]",
+                        "clientAffinityEnabled": false,
+                        "httpsOnly": true,
+                        "siteConfig": {
+                            "appSettings": "[variables('appServiceSettings')]",
+                            "alwaysOn": false
+                        }
+                    },
                     "dependsOn": [
                         "[parameters('appServiceName')]"
                     ]
