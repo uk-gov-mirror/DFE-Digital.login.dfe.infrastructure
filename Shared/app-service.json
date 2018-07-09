@@ -20,6 +20,10 @@
                 "description": "Resource Group where the ASP lives"
             }
         },
+        "appServiceAppSettings": {
+            "type": "array",
+            "defaultValue": []
+        },
         "nodeVersion": {
             "type": "string",
             "defaultValue": "8.9.4",
@@ -48,16 +52,7 @@
                 "clientAffinityEnabled": false,
                 "httpsOnly": true,
                 "siteConfig": {
-                    "appSettings": [
-                        {
-                            "name": "WEBSITE_NODE_DEFAULT_VERSION",
-                            "value": "[parameters('nodeVersion')]"
-                        },
-                        {
-                            "name": "settings",
-                            "value": "[parameters('appServiceConfigPath')]"
-                        }
-                    ],
+                    "appSettings": "[parameters('appServiceAppSettings')]",
                     "alwaysOn": false
                 }
             },
