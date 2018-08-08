@@ -83,7 +83,8 @@
                         "httpsOnly": true,
                         "siteConfig": {
                             "appSettings": "[variables('appServiceSettings')]",
-                            "alwaysOn": false
+                            "alwaysOn": false,
+                            "minTlsVersion": "1.2"
                         }
                     },
                     "dependsOn": [
