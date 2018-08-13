@@ -66,8 +66,7 @@
                 "httpsOnly": true,
                 "siteConfig": {
                     "appSettings": "[variables('appServiceSettings')]",
-                    "alwaysOn": false,
-                    "minTlsVersion": "1.0"
+                    "alwaysOn": false
                 }
             },
             "resources": [
@@ -83,7 +82,7 @@
                         "httpsOnly": true,
                         "siteConfig": {
                             "appSettings": "[variables('appServiceSettings')]",
-                            "alwaysOn": false,
+                            "alwaysOn": false
                         }
                     },
                     "dependsOn": [
