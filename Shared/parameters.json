@@ -59,6 +59,9 @@
         },
         "EPGWIP": {
             "value": "__EPGWIP__"
-        }
+        },
+        "minTlsVersion": {
+            "value": "__minTlsVersion__"
+        }        
     }
 }

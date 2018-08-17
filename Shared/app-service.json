@@ -39,6 +39,12 @@
             "metadata": {
                 "description": "Whether or not to include a staging deployment slot"
             }          
+        },
+        "minTlsVersion": {
+            "type": "string",
+            "metadata": {
+                "description": "The minimum tls version for the service"
+            }
         }
     },
     "variables": {
@@ -67,7 +73,7 @@
                 "siteConfig": {
                     "appSettings": "[variables('appServiceSettings')]",
                     "alwaysOn": false,
-                    "minTlsVersion": "1.0"
+                    "minTlsVersion": "[parameters('minTlsVersion')]"
                 }
             },
             "resources": [
@@ -84,7 +90,7 @@
                         "siteConfig": {
                             "appSettings": "[variables('appServiceSettings')]",
                             "alwaysOn": false,
-                            "minTlsVersion": "1.0"
+                            "minTlsVersion": "[parameters('minTlsVersion')]"
                         }
                     },
                     "dependsOn": [
