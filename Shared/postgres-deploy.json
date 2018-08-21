@@ -14,7 +14,7 @@
       "keyVaultName":{
           "type": "string"
       },
-      "keyVaultResourceGroup":{
+      "sharedResourceGroup":{
           "type": "string"
       },      
       "postgresServerName": {
@@ -76,7 +76,7 @@
                     "administratorLoginPassword": {
                         "reference": {
                             "keyVault": {
-                            "id": "[resourceId(subscription().subscriptionId,  parameters('keyVaultResourceGroup'), 'Microsoft.KeyVault/vaults', parameters('keyVaultName'))]"
+                            "id": "[resourceId(subscription().subscriptionId,  parameters('sharedResourceGroup'), 'Microsoft.KeyVault/vaults', parameters('keyVaultName'))]"
                             },
                             "secretName": "[parameters('postgresAdminSecretName')]"
                         }

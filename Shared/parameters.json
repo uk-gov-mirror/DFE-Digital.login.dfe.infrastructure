@@ -48,8 +48,8 @@
         "keyVaultName": {
             "value": "__keyVaultName__"
         },
-        "keyVaultResourceGroup": {
-            "value": "__keyVaultResourceGroup__"
+        "sharedResourceGroup": {
+            "value": "__sharedResourceGroup__"
         },        
         "AccessPolicyObjectId": {
             "value": ""
