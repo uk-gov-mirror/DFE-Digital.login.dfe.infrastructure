@@ -48,7 +48,12 @@
                     "type": "slots",
                     "apiVersion": "2016-08-01",
                     "location": "[resourceGroup().location]",
-                    "properties": { },
+                    "properties": { 
+                        "siteConfig": {
+                            "alwaysOn": true,
+                            "linuxFxVersion": "[concat('DOCKER|', parameters('containerName'))]"
+                        }
+                    },
                     "dependsOn": [
                         "[parameters('appServiceName')]"
                     ]
