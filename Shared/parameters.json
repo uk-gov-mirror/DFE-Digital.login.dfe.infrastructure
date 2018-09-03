@@ -48,6 +48,9 @@
         "keyVaultName": {
             "value": "__keyVaultName__"
         },
+        "sharedResourceGroup": {
+            "value": "__sharedResourceGroup__"
+        },        
         "AccessPolicyObjectId": {
             "value": ""
         },
@@ -62,6 +65,18 @@
         },
         "minTlsVersion": {
             "value": "__minTlsVersion__"
+        },
+        "postgresAdministratorLogin": {
+            "value": "__postgresAdministratorLogin__"
+        },        
+        "postgresOsaDatabaseName": {
+            "value": "__postgresOsaDatabaseName__"
+        },
+        "postgresAdminSecretName": {
+            "value": "__postgresAdminSecretName__"
+        },
+        "postgresServerName": {
+            "value": "__postgresServerName__"
         }        
     }
 }
