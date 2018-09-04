@@ -1,0 +1,84 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "sqlAdministratorLogin": {
+        "type": "string"
+      },
+      "sqlAdminSecretName":{
+        "type": "string"
+      },
+      "keyVaultName":{
+          "type": "string"
+      },
+      "sharedResourceGroup":{
+          "type": "string"
+      },      
+      "sqlServerName": {
+        "type": "string"
+      },
+      "templatesBaseUri":{
+        "type": "string",
+        "defaultValue": "https://raw.githubusercontent.com/DFE-Digital/login.dfe.infrastructure/master"
+      },
+      "elasticPoolName": {
+        "type": "string",
+        "metadata": {
+          "description": "The name of the SQL Elastic Pool"
+        }
+      },
+      "EPGWIP": {
+        "type": "string",
+        "metadata": {
+          "description": "Firewall IP"
+        }
+      },
+      "CHGWIP": {
+        "type": "string",
+        "metadata": {
+          "description": "Firewall IP"
+        }
+      }
+    },
+    "resources": [
+        {
+            "apiVersion": "2015-01-01",
+            "name": "nestedTemplate",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('templatesBaseUri'), '/Shared/azure-sql.json')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "sqlAdministratorLogin": 
+                    {
+                        "value": "[parameters('sqlAdministratorLogin')]"
+                    },
+                    "sqlAdministratorLoginPassword": {
+                        "reference": {
+                            "keyVault": {
+                            "id": "[resourceId(subscription().subscriptionId,  parameters('sharedResourceGroup'), 'Microsoft.KeyVault/vaults', parameters('keyVaultName'))]"
+                            },
+                            "secretName": "[parameters('sqlAdminSecretName')]"
+                        }
+                    },
+                    "sqlServerName": {
+                        "value": "[parameters('sqlServerName')]"
+                    },
+                    "elasticPoolName": {
+                        "value": "[parameters('elasticPoolName')]"
+                    },
+                    "EPGWIP": {
+                        "value": "[parameters('EPGWIP')]"
+                    },
+                    "CHGWIP": {
+                        "value": "[parameters('CHGWIP')]"
+                    }
+                },
+            }
+        }
+    ],
+    "variables": { }
+  }
