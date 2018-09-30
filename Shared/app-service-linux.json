@@ -1,0 +1,69 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "appServiceName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the App Service"
+            }
+        },
+        "appServicePlanName": {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the App Service Plan"
+            }
+        },
+        "appServicePlanRG": {
+            "type": "string",
+            "metadata": {
+                "description": "Resource Group where the ASP lives"
+            }
+        },
+        "runtimeStack" : {
+            "type": "string",
+            "metadata": {
+                "description": "The name of the runtime stack for the container"
+            }
+        }
+    },
+    "variables": {
+        "appServicePlanId": "[resourceId(parameters('appServicePlanRG'), 'Microsoft.Web/serverfarms', parameters('appServicePlanName'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Web/sites",
+            "name": "[parameters('appServiceName')]",
+            "kind": "app,linux,container",
+            "apiVersion": "2016-08-01",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "clientAffinityEnabled": false,
+                "serverFarmId": "[variables('appServicePlanId')]",
+                "siteConfig": {
+                    "alwaysOn": false,
+                    "linuxFxVersion": "[parameters('runtimeStack')]"
+                }
+            },
+            "resources": [
+                {
+                    "name": "staging",
+                    "type": "slots",
+                    "apiVersion": "2016-08-01",
+                    "location": "[resourceGroup().location]",
+                    "properties": {
+                        "clientAffinityEnabled": false,
+                        "serverFarmId": "[variables('appServicePlanId')]",
+                        "siteConfig": {
+                            "alwaysOn": false,
+                            "linuxFxVersion": "[parameters('runtimeStack')]"
+                        }
+                    },
+                    "dependsOn": [
+                        "[parameters('appServiceName')]"
+                    ]
+                }
+            ]
+        }
+    ]
+}
