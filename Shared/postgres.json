@@ -23,6 +23,10 @@
         },
         "postgresAdminPassword": {
             "type": "securestring"
+        },
+        "postgresDatabases": {
+            "type": "array",
+            "defaultValue": []
         }
     },
     "variables": {},
@@ -44,6 +48,18 @@
                 "administratorLogin": "[parameters('postgresAdminLogin')]",
                 "administratorLoginPassword": "[parameters('postgresAdminPassword')]"
             }
+        },
+        {
+            "name": "[concat(parameters('postgresServerName'), '/', parameters('postgresDatabases')[copyIndex()])]",
+            "apiVersion": "2017-12-01",
+            "type": "Microsoft.DBforPostgreSQL/servers/databases",
+            "copy": {
+                "name": "databaseCopy",
+                "count": "[length(parameters('postgresDatabases'))]"
+            },
+            "dependsOn": [
+                "[parameters('postgresServerName')]"
+            ]
         }
     ],
     "outputs": {}
