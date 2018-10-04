@@ -1,0 +1,50 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "postgresServerName": {
+            "type": "string",
+            "metadata": {
+                "description": "Name of the PostgreSQL server"
+            }
+        },
+        "postgresSku": {
+            "type": "object",
+            "defaultValue": {
+                "name": "GP_Gen5_2",
+                "tier": "GeneralPurpose",
+                "size": 5120,
+                "family": "Gen5",
+                "capacity": 2
+            }
+        },
+        "postgresAdminLogin": {
+            "type": "string"
+        },
+        "postgresAdminPassword": {
+            "type": "securestring"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "name": "[parameters('postgresServerName')]",
+            "type": "Microsoft.DBforPostgreSQL/servers",
+            "apiVersion": "2017-12-01",
+            "location": "[resourceGroup().location]",
+            "sku": "[parameters('postgresSku')]",
+            "properties": {
+                "storageProfile": {
+                    "storageMB": "[parameters('postgresSku').size]",
+                    "backupRetentionDays": 7,
+                    "geoRedundantBackup": "Disabled"
+                },
+                "version": "9.6",
+                "sslEnforcement": "Enabled",
+                "administratorLogin": "[parameters('postgresAdminLogin')]",
+                "administratorLoginPassword": "[parameters('postgresAdminPassword')]"
+            }
+        }
+    ],
+    "outputs": {}
+}
