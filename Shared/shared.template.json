@@ -92,6 +92,13 @@
         "description": "Name of the storage account resource"
       }
     },
+    "storageAccountType": {
+      "type": "string",
+      "defaultValue": "Standard_RAGRS",
+      "metadata": {
+        "description": "Type of storage account to use"
+      }
+    },
     "keyVaultName": {
       "type": "string",
       "metadata": {
@@ -271,6 +278,9 @@
         "parameters": {
           "storageAccountName": {
             "value": "[parameters('storageAccountName')]"
+          },
+          "storageAccountType": {
+            "value": "[parameters('storageAccountType')]"
           }
         }
       },
