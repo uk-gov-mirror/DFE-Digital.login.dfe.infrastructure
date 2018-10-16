@@ -128,6 +128,36 @@
       "metadata": {
         "description": "Firewall IP"
       }
+    },
+    "postgresServerName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the postgres server"
+      }
+    },
+    "postgresSku": {
+      "type": "object",
+      "metadata": {
+        "description": "SKU for the postgres server"
+      }
+    },
+    "postgresAdminLogin": {
+      "type": "string",
+      "metadata": {
+        "description": "Admin username for the postgres server"
+      }
+    },
+    "postgresAdminPassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Admin password for the postgres server"
+      }
+    },
+    "postgresDatabases": {
+      "type": "array",
+      "metadata": {
+        "description": "Array of database names to create within the postgres server"
+      }
     }
   },
   "variables": {
@@ -138,7 +168,8 @@
     "appInsightsTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/app-insights.json')]",
     "storageAccountTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/storage-account.json')]",
     "keyVaultTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/key-vault.json')]",
-    "azureSearchTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/azure-search.json')]"
+    "azureSearchTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/azure-search.json')]",
+    "postgresTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/postgres.json')]"
   },
   "resources": [
     {
@@ -318,6 +349,35 @@
         "parameters": {
           "azureSearchName": {
             "value": "[parameters('azureSearchName')]"
+          }
+        }
+      },
+      "dependsOn": []
+    },
+    {
+      "name": "Postgres",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2014-04-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('postgresTemplateUri')]"
+        },
+        "parameters": {
+          "postgresServerName": {
+            "value": "[parameters('postgresServerName')]"
+          },
+          "postgresSku": {
+            "value": "[parameters('postgresSku')]"
+          },
+          "postgresAdminLogin": {
+            "value": "[parameters('postgresAdminLogin')]"
+          },
+          "postgresAdminPassword": {
+            "value": "[parameters('postgresAdminPassword')]"
+          },
+          "postgresDatabases": {
+            "value": "[parameters('postgresDatabases')]"
           }
         }
       },

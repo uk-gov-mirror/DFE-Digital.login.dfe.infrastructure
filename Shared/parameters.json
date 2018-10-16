@@ -59,6 +59,14 @@
         },
         "EPGWIP": {
             "value": "__EPGWIP__"
-        }      
+        },
+        "postgresServerName": {
+            "value": "__postgresServerName__"
+        },
+        "postgresDatabases": {
+            "value": [
+                "__osaPostgresDBName__"
+            ]
+        }
     }
 }
