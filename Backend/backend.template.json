@@ -35,30 +35,35 @@
     "variables": {
         "appServicePlanTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/app-service-plan.json')]"
     },
-    "resources": [{
-        "apiVersion": "2017-05-10",
-        "name": "AppServicePlan",
-        "type": "Microsoft.Resources/deployments",
-        "properties": {
-            "mode": "Incremental",
-            "templateLink": {
-                "uri": "[variables('appServicePlanTemplateUri')]"
-            },
-            "parameters": {
-                "appServicePlanName": {
-                    "value": "[parameters('appServicePlanName')]"
+    "resources": [
+        {
+            "apiVersion": "2017-05-10",
+            "name": "AppServicePlan",
+            "type": "Microsoft.Resources/deployments",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('appServicePlanTemplateUri')]"
                 },
-                "appServicePlanSku": {
-                    "value": "[parameters('appServicePlanSku')]"
-                },
-                "appServicePlanOS": {
-                    "value": "[parameters('appServicePlanOS')]"
-                },
-                "appServicePlanIsLinux": {
-                    "value": "[parameters('appServicePlanIsLinux')]"
+                "parameters": {
+                    "appServicePlanName": {
+                        "value": "[parameters('appServicePlanName')]"
+                    },
+                    "appServicePlanSku": {
+                        "value": "[parameters('appServicePlanSku')]"
+                    },
+                    "appServicePlanOS": {
+                        "value": "[parameters('appServicePlanOS')]"
+                    },
+                    "appServicePlanIsLinux": {
+                        "value": "[parameters('appServicePlanIsLinux')]"
+                    },
+                    "perSiteScalingEnabled": {
+                        "value": true
+                    }
                 }
             }
         }
-    }],
+    ],
     "outputs": {}
 }

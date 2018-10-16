@@ -20,10 +20,17 @@
                 "description": "Windows or Linux"
             }
         },
-        "appServicePlanIsLinux" : {
+        "appServicePlanIsLinux": {
             "type": "bool",
             "metadata": {
                 "description": "Whether the App Service Plan is Linux or not"
+            }
+        },
+        "perSiteScalingEnabled": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Whether the App Service Plan has perSiteScaling enabled"
             }
         }
     },
@@ -36,10 +43,11 @@
             "location": "[resourceGroup().location]",
             "sku": "[parameters('appServicePlanSku')]",
             "kind": "[parameters('appServicePlanOS')]",
-            "properties":{
+            "properties": {
                 "name": "[parameters('appServicePlanName')]",
-                "reserved": "[parameters('appServicePlanIsLinux')]"
-           }
+                "reserved": "[parameters('appServicePlanIsLinux')]",
+                "perSiteScaling": "[parameters('perSiteScalingEnabled')]"
+            }
         }
     ],
     "outputs": {}

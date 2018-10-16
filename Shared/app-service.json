@@ -4,13 +4,13 @@
     "parameters": {
         "appServiceName": {
             "type": "string",
-            "metadata":{
+            "metadata": {
                 "description": "The name of the App Service"
             }
         },
         "appServicePlanName": {
             "type": "string",
-            "metadata":{
+            "metadata": {
                 "description": "The name of the App Service Plan"
             }
         },
@@ -38,13 +38,20 @@
             "defaultValue": true,
             "metadata": {
                 "description": "Whether or not to include a staging deployment slot"
-            }          
+            }
         },
         "minTlsVersion": {
             "type": "string",
             "defaultValue": "1.0",
             "metadata": {
                 "description": "The minimum tls version for the service"
+            }
+        },
+        "numberOfWorkers": {
+            "type": "int",
+            "defaultValue": 1,
+            "metadata": {
+                "description": "The number of workers to assign to the app service within the app service plan"
             }
         }
     },
@@ -74,7 +81,8 @@
                 "siteConfig": {
                     "appSettings": "[variables('appServiceSettings')]",
                     "alwaysOn": false,
-                    "minTlsVersion": "[parameters('minTlsVersion')]"
+                    "minTlsVersion": "[parameters('minTlsVersion')]",
+                    "numberOfWorkers": "[parameters('numberOfWorkers')]"
                 }
             },
             "resources": [
@@ -91,7 +99,8 @@
                         "siteConfig": {
                             "appSettings": "[variables('appServiceSettings')]",
                             "alwaysOn": false,
-                            "minTlsVersion": "[parameters('minTlsVersion')]"
+                            "minTlsVersion": "[parameters('minTlsVersion')]",
+                            "numberOfWorkers": "[parameters('numberOfWorkers')]"
                         }
                     },
                     "dependsOn": [
