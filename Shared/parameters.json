@@ -63,12 +63,6 @@
         "postgresServerName": {
             "value": "__postgresServerName__"
         },
-        "postgresAdminLogin": {
-            "value": "__postgresAdminLogin__"
-        },
-        "postgresAdminPassword": {
-            "value": "__postgresAdminPassword__"
-        },
         "postgresDatabases": {
             "value": [
                 "__osaPostgresDBName__"
