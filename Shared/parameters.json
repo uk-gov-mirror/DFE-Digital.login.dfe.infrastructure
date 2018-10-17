@@ -54,6 +54,9 @@
         "azureSearchName": {
             "value": "__azureSearchName__"
         },
+        "azureCdnName": {
+            "value": "__azureCdnName__"
+        },
         "CHGWIP": {
             "value": "__CHGWIP__"
         },

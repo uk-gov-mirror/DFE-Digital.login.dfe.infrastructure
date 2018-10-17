@@ -1,0 +1,82 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "cdnEndpointName": {
+            "type": "string"
+        },
+        "cdnProfileName": {
+            "type": "string"
+        },
+        "originHostname": {
+            "type": "string"
+        },
+        "optimizationType": {
+            "defaultValue": "GeneralWebDelivery",
+            "type": "string",
+            "allowedValues": [
+                "GeneralWebDelivery",
+                "GeneralMediaStreaming",
+                "VideoOnDemandMediaStreaming",
+                "LargeFileDownload",
+                "DynamicSiteAcceleration"
+            ]
+        },
+        "customDomainName": {
+            "defaultValue": "",
+            "type": "string"
+        },
+        "originPath": {
+            "defaultValue": "",
+            "type": "string"
+        }
+    },
+    "variables": {
+        "fullEndpointName": "[concat(parameters('cdnProfileName'), '/', parameters('cdnEndpointName'))]",
+        "customDomainEnabled": "[greater(length(parameters('customDomainName')), 0)]",
+        "formattedOriginPath": "[if(equals(first(parameters('originPath')), '/'), parameters('originPath'), concat('/', parameters('originPath')))]"
+    },
+    "resources": [
+        {
+            "apiVersion": "2018-04-02",
+            "type": "Microsoft.Cdn/profiles/endpoints",
+            "name": "[variables('fullEndpointName')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "isHttpAllowed": true,
+                "isHttpsAllowed": true,
+                "origins": [
+                    {
+                        "name": "[replace(parameters('originHostname'), '.', '-')]",
+                        "properties": {
+                            "hostName": "[parameters('originHostname')]"
+                        }
+                    }
+                ],
+                "isCompressionEnabled": true,
+                "contentTypesToCompress": [
+                    "text/plain",
+                    "text/html",
+                    "text/css",
+                    "text/javascript",
+                    "application/x-javascript",
+                    "application/javascript",
+                    "application/json",
+                    "application/xml"
+                ],
+                "optimizationType": "[parameters('optimizationType')]",
+                "originHostHeader": "[parameters('originHostname')]",
+                "originPath": "[if(greater(length(parameters('originPath')), 0), variables('formattedOriginPath'), json('null'))]"
+            }
+        },
+        {
+            "apiVersion": "2018-04-02",
+            "condition": "[variables('customDomainEnabled')]",
+            "type": "Microsoft.Cdn/profiles/endpoints/customDomains",
+            "name": "[concat(variables('fullEndpointName'), '/', if(variables('customDomainEnabled'), replace(parameters('customDomainName'), '.', '-'), 'placeholder'))]",
+            "properties": {
+                "hostName": "[parameters('customDomainName')]"
+            }
+        }
+    ]
+}
