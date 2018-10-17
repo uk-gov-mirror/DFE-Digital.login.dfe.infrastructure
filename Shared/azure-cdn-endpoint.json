@@ -25,11 +25,16 @@
         "customDomainName": {
             "defaultValue": "",
             "type": "string"
+        },
+        "originPath": {
+            "defaultValue": "",
+            "type": "string"
         }
     },
     "variables": {
         "fullEndpointName": "[concat(parameters('cdnProfileName'), '/', parameters('cdnEndpointName'))]",
-        "CustomDomainEnabled": "[greater(length(parameters('customDomainName')), 0)]"
+        "customDomainEnabled": "[greater(length(parameters('customDomainName')), 0)]",
+        "formattedOriginPath": "[if(equals(first(parameters('originPath')), '/'), parameters('originPath'), concat('/', parameters('originPath')))]"
     },
     "resources": [
         {
@@ -60,14 +65,15 @@
                     "application/xml"
                 ],
                 "optimizationType": "[parameters('optimizationType')]",
-                "originHostHeader": "[parameters('originHostname')]"
+                "originHostHeader": "[parameters('originHostname')]",
+                "originPath": "[if(greater(length(parameters('originPath')), 0), variables('formattedOriginPath'), json('null'))]"
             }
         },
         {
             "apiVersion": "2018-04-02",
-            "condition": "[variables('CustomDomainEnabled')]",
+            "condition": "[variables('customDomainEnabled')]",
             "type": "Microsoft.Cdn/profiles/endpoints/customDomains",
-            "name": "[concat(variables('fullEndpointName'), '/', if(variables('CustomDomainEnabled'), replace(parameters('customDomainName'), '.', '-'), 'placeholder'))]",
+            "name": "[concat(variables('fullEndpointName'), '/', if(variables('customDomainEnabled'), replace(parameters('customDomainName'), '.', '-'), 'placeholder'))]",
             "properties": {
                 "hostName": "[parameters('customDomainName')]"
             }
