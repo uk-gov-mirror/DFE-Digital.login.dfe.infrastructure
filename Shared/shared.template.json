@@ -393,8 +393,7 @@
           "postgresDatabases": {
             "value": "[parameters('postgresDatabases')]"
           }
-        },
-        "dependsOn": []
+        }
       }
     },
     {
