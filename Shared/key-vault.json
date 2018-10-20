@@ -7,6 +7,9 @@
         },
         "AccessPolicyObjectId": {
           "type": "string"
+        },
+        "AccessPolicyObjectId2": {
+          "type": "string"
         }
     },
     "variables": {
@@ -27,7 +30,23 @@
                 ],
                 "certificates": []
             }
-            }
+            },{
+                "objectId": "[parameters('AccessPolicyObjectId2')]",
+                "tenantId": "[subscription().tenantId]",
+                "permissions": {
+                  "keys": [],
+                  "secrets": [
+                      "Get",
+                      "List",
+                      "Set",
+                      "Delete",
+                      "Recover",
+                      "Backup",
+                      "Restore"
+                  ],
+                  "certificates": []
+              }
+              }
           ]
     },
     "resources": [
