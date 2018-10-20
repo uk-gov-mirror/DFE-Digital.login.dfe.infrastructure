@@ -350,9 +350,12 @@
           "keyVaultName": {
             "value": "[parameters('keyVaultName')]"
           },
-          "AccessPolicyObjectId": {
-            "value": "[parameters('AccessPolicyObjectId')]"
-          }
+            "AccessPolicyObjectId": {
+                "value": "[parameters('AccessPolicyObjectId')]"
+            },
+            "AccessPolicyObjectId2": {
+                "value": "[parameters('AccessPolicyObjectId2')]"
+            }
         }
       },
       "dependsOn": []
