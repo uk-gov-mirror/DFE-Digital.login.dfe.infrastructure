@@ -51,6 +51,9 @@
         "AccessPolicyObjectId": {
             "value": ""
         },
+        "AccessPolicyObjectId2": {
+            "value": ""
+        },
         "azureSearchName": {
             "value": "__azureSearchName__"
         },

@@ -108,7 +108,13 @@
     "AccessPolicyObjectId": {
       "type": "string",
       "metadata": {
-        "description": "ObjectID for the Access Policy"
+        "description": "ObjectID for the Devices Access Policy"
+      }
+    },
+    "AccessPolicyObjectId2": {
+      "type": "string",
+      "metadata": {
+        "description": "ObjectID for the VSTS Access Policy"
       }
     },
     "azureSearchName": {
