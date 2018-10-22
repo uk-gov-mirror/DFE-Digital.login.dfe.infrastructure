@@ -73,6 +73,12 @@
             "value": [
                 "__osaPostgresDBName__"
             ]
+        },
+        "keyvaultCertificateNames": {
+            "value": [
+                "__signinProxyCertName__",
+                "__signinCertName__"
+            ]
         }
     }
 }
