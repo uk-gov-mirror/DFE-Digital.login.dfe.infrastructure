@@ -105,16 +105,10 @@
         "description": "Name of the Key Vault resource"
       }
     },
-    "AccessPolicyObjectId": {
-      "type": "string",
+    "AccessPolicyObjectIds": {
+      "type": "array",
       "metadata": {
-        "description": "ObjectID for the Devices Access Policy"
-      }
-    },
-    "AccessPolicyObjectId2": {
-      "type": "string",
-      "metadata": {
-        "description": "ObjectID for the VSTS Access Policy"
+        "description": "ObjectIDs for the Keyvault Access Policy"
       }
     },
     "azureSearchName": {
@@ -357,11 +351,8 @@
           "keyVaultName": {
             "value": "[parameters('keyVaultName')]"
           },
-          "AccessPolicyObjectId": {
-            "value": "[parameters('AccessPolicyObjectId')]"
-          },
-          "AccessPolicyObjectId2": {
-            "value": "[parameters('AccessPolicyObjectId2')]"
+          "AccessPolicyObjectIdS": {
+            "value": "[parameters('AccessPolicyObjectIds')]"
           }
         }
       },

@@ -5,49 +5,34 @@
         "keyVaultName": {
             "type": "string"
         },
-        "AccessPolicyObjectId": {
-          "type": "string"
-        },
-        "AccessPolicyObjectId2": {
-          "type": "string"
+        "AccessPolicyObjectIds": {
+            "type": "array"
         }
     },
     "variables": {
-        "webAppAccessPolicy": [
+        "copy": [
             {
-              "objectId": "[parameters('AccessPolicyObjectId')]",
-              "tenantId": "[subscription().tenantId]",
-              "permissions": {
-                "keys": [],
-                "secrets": [
-                    "Get",
-                    "List",
-                    "Set",
-                    "Delete",
-                    "Recover",
-                    "Backup",
-                    "Restore"
-                ],
-                "certificates": []
+                "name": "webAppAccessPolicy",
+                "count": "[length(parameters('AccessPolicyObjectIds'))]",
+                "input": {
+                    "objectId": "[parameters('AccessPolicyObjectIds')[copyIndex('webAppAccessPolicy')]]",
+                    "tenantId": "[subscription().tenantId]",
+                    "permissions": {
+                        "keys": [],
+                        "secrets": [
+                            "Get",
+                            "List",
+                            "Set",
+                            "Delete",
+                            "Recover",
+                            "Backup",
+                            "Restore"
+                        ],
+                        "certificates": []
+                    }
+                }
             }
-            },{
-                "objectId": "[parameters('AccessPolicyObjectId2')]",
-                "tenantId": "[subscription().tenantId]",
-                "permissions": {
-                  "keys": [],
-                  "secrets": [
-                      "Get",
-                      "List",
-                      "Set",
-                      "Delete",
-                      "Recover",
-                      "Backup",
-                      "Restore"
-                  ],
-                  "certificates": []
-              }
-              }
-          ]
+        ]
     },
     "resources": [
         {
