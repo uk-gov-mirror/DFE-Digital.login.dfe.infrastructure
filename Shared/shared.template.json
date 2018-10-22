@@ -351,7 +351,7 @@
           "keyVaultName": {
             "value": "[parameters('keyVaultName')]"
           },
-          "AccessPolicyObjectIdS": {
+          "AccessPolicyObjectIds": {
             "value": "[parameters('AccessPolicyObjectIds')]"
           }
         }
@@ -446,7 +446,10 @@
       "copy": {
         "name": "certCopy",
         "count": "[length(parameters('keyvaultCertificateNames'))]"
-      }
+      },
+      "dependsOn": [
+        "KeyVault"
+      ]
     }
   ],
   "outputs": {}
