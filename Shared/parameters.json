@@ -48,11 +48,8 @@
         "keyVaultName": {
             "value": "__keyVaultName__"
         },
-        "AccessPolicyObjectId": {
-            "value": ""
-        },
-        "AccessPolicyObjectId2": {
-            "value": ""
+        "AccessPolicyObjectIds": {
+            "value": []
         },
         "azureSearchName": {
             "value": "__azureSearchName__"
