@@ -177,6 +177,12 @@
       "metadata": {
         "description": "Array of database names to create within the postgres server"
       }
+    },
+    "keyvaultCertificateNames": {
+      "type": "array",
+      "metadata": {
+        "description": "Names of the certificates stored in keyvault"
+      }
     }
   },
   "variables": {
@@ -189,7 +195,8 @@
     "keyVaultTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/key-vault.json')]",
     "azureSearchTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/azure-search.json')]",
     "postgresTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/postgres.json')]",
-    "azureCdnTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/azure-cdn.json')]"
+    "azureCdnTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/azure-cdn.json')]",
+    "certificateTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/app-service-certificate.json')]"
   },
   "resources": [
     {
@@ -350,12 +357,12 @@
           "keyVaultName": {
             "value": "[parameters('keyVaultName')]"
           },
-            "AccessPolicyObjectId": {
-                "value": "[parameters('AccessPolicyObjectId')]"
-            },
-            "AccessPolicyObjectId2": {
-                "value": "[parameters('AccessPolicyObjectId2')]"
-            }
+          "AccessPolicyObjectId": {
+            "value": "[parameters('AccessPolicyObjectId')]"
+          },
+          "AccessPolicyObjectId2": {
+            "value": "[parameters('AccessPolicyObjectId2')]"
+          }
         }
       },
       "dependsOn": []
@@ -422,6 +429,32 @@
             "value": "[parameters('azureCdnSku')]"
           }
         }
+      }
+    },
+    {
+      "name": "AppServiceCertificates",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2014-04-01",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('certificateTemplateUri')]"
+        },
+        "parameters": {
+          "keyVaultCertificateName": {
+            "value": "[parameters('keyvaultCertificateNames')[copyIndex()]]"
+          },
+          "keyVaultName": {
+            "value": "[parameters('keyVaultName')]"
+          },
+          "keyVaultResourceGroup": {
+            "value": "[resourceGroup().name]"
+          }
+        }
+      },
+      "copy": {
+        "name": "certCopy",
+        "count": "[length(parameters('keyvaultCertificateNames'))]"
       }
     }
   ],

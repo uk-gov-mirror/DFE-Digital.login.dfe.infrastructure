@@ -20,15 +20,27 @@
                 "description": "Resource Group where the ASP lives"
             }
         },
-        "runtimeStack" : {
+        "runtimeStack": {
             "type": "string",
             "metadata": {
                 "description": "The name of the runtime stack for the container"
             }
+        },
+        "customHostName": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "certificateThumbprint": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "This can be passed into the template via the reference function: [reference(resourceId(parameters('certificateResourceGroup'), 'Microsoft.Web/certificates', parameters('certificateName')), '2016-03-01').Thumbprint]"
+            }
         }
     },
     "variables": {
-        "appServicePlanId": "[resourceId(parameters('appServicePlanRG'), 'Microsoft.Web/serverfarms', parameters('appServicePlanName'))]"
+        "appServicePlanId": "[resourceId(parameters('appServicePlanRG'), 'Microsoft.Web/serverfarms', parameters('appServicePlanName'))]",
+        "useCustomHostname": "[greater(length(parameters('customHostname')), 0)]"
     },
     "resources": [
         {
@@ -63,6 +75,20 @@
                         "[parameters('appServiceName')]"
                     ]
                 }
+            ]
+        },
+        {
+            "type": "Microsoft.Web/sites/hostnameBindings",
+            "condition": "[variables('useCustomHostname')]",
+            "name": "[concat(parameters('appServiceName'), '/', if(variables('useCustomHostname'), parameters('customHostname'), 'placeholder'))]",
+            "apiVersion": "2016-08-01",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "sslState": "SniEnabled",
+                "thumbprint": "[parameters('certificateThumbprint')]"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', parameters('appServiceName'))]"
             ]
         }
     ]
