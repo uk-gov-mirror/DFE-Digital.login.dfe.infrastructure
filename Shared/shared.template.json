@@ -432,7 +432,7 @@
       }
     },
     {
-      "name": "AppServiceCertificates",
+      "name": "[concat('AppServiceCertificates', copyIndex())]",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2014-04-01",
       "properties": {
