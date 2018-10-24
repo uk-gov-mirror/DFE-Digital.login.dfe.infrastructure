@@ -101,10 +101,7 @@
           "copy": {
             "name": "certCopy",
             "count": "[length(parameters('keyvaultCertificateNames'))]"
-          },
-          "dependsOn": [
-            "KeyVault"
-          ]
+          }
         }
     ],
     "outputs": {}
