@@ -42,6 +42,12 @@
           "metadata": {
             "description": "Names of the certificates stored in keyvault"
           }
+        },
+        "keyVaultResourceGroup": {
+          "type": "string",
+          "metadata": {
+            "description": "Name of the Key Vault resource"
+          }
         }
     },
     "variables": {
@@ -94,7 +100,7 @@
                 "value": "[parameters('keyVaultName')]"
               },
               "keyVaultResourceGroup": {
-                "value": "[resourceGroup().name]"
+                "value": "[parameters('keyVaultResourceGroup')]"
               }
             }
           },
