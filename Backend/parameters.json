@@ -28,6 +28,9 @@
                 "__signinProxyCertName__",
                 "__signinCertName__"
             ]
+        },
+        "keyVaultResourceGroup": {
+            "value": "__keyVaultResourceGroup__"
         }
     }
 }
