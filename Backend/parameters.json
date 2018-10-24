@@ -23,6 +23,9 @@
         "appServicePlanIsLinux": {
             "value": false
         },
+        "keyVaultName": {
+            "value": "__keyVaultName__"
+        },
         "keyvaultCertificateNames": {
             "value": [
                 "__signinProxyCertName__",
