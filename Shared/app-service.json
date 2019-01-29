@@ -92,7 +92,7 @@
                 "httpsOnly": true,
                 "siteConfig": {
                     "appSettings": "[variables('appServiceSettings')]",
-                    "alwaysOn": false,
+                    "alwaysOn": true,
                     "minTlsVersion": "[parameters('minTlsVersion')]",
                     "numberOfWorkers": "[parameters('numberOfWorkers')]"
                 }

@@ -53,7 +53,7 @@
                 "clientAffinityEnabled": false,
                 "serverFarmId": "[variables('appServicePlanId')]",
                 "siteConfig": {
-                    "alwaysOn": false,
+                    "alwaysOn": true,
                     "linuxFxVersion": "[parameters('runtimeStack')]"
                 }
             },
