@@ -51,6 +51,7 @@
             "location": "[resourceGroup().location]",
             "properties": {
                 "clientAffinityEnabled": false,
+                "httpsOnly": true,
                 "serverFarmId": "[variables('appServicePlanId')]",
                 "siteConfig": {
                     "alwaysOn": true,
