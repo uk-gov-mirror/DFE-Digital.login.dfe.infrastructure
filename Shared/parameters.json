@@ -60,9 +60,6 @@
         "CHGWIP": {
             "value": "__CHGWIP__"
         },
-        "EPGWIP": {
-            "value": "__EPGWIP__"
-        },
         "postgresServerName": {
             "value": "__postgresServerName__"
         },
