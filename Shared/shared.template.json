@@ -130,12 +130,6 @@
         "description": "Sku of the Azure Cdn Profile resource"
       }
     },
-    "EPGWIP": {
-      "type": "string",
-      "metadata": {
-        "description": "Firewall IP"
-      }
-    },
     "CHGWIP": {
       "type": "string",
       "metadata": {
@@ -258,9 +252,6 @@
           },
           "elasticPoolName": {
             "value": "[parameters('elasticPoolName')]"
-          },
-          "EPGWIP": {
-            "value": "[parameters('EPGWIP')]"
           },
           "CHGWIP": {
             "value": "[parameters('CHGWIP')]"
