@@ -43,7 +43,7 @@
             "name": "[variables('fullEndpointName')]",
             "location": "[resourceGroup().location]",
             "properties": {
-                "isHttpAllowed": true,
+                "isHttpAllowed": false,
                 "isHttpsAllowed": true,
                 "origins": [
                     {
