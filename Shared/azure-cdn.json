@@ -6,13 +6,7 @@
             "type": "string"
         },
         "cdnSKU": {
-            "type": "string",
-            "allowedValues": [
-                "Standard_Verizon",
-                "Premium_Verizon",
-                "Standard_Akamai",
-                "Standard_Microsoft"
-            ]
+            "type": "string"
         }
     },
     "variables": {},
