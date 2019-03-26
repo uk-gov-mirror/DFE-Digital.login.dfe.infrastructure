@@ -8,26 +8,19 @@
         "cdnProfileName": {
             "type": "string"
         },
+        "originName": {
+            "type": "string"
+        },
         "originHostname": {
             "type": "string"
         },
         "optimizationType": {
-            "defaultValue": "GeneralWebDelivery",
-            "type": "string",
-            "allowedValues": [
-                "GeneralWebDelivery",
-                "GeneralMediaStreaming",
-                "VideoOnDemandMediaStreaming",
-                "LargeFileDownload",
-                "DynamicSiteAcceleration"
-            ]
+            "type": "string"
         },
         "customDomainName": {
-            "defaultValue": "",
             "type": "string"
         },
         "originPath": {
-            "defaultValue": "",
             "type": "string"
         }
     },
@@ -47,7 +40,7 @@
                 "isHttpsAllowed": true,
                 "origins": [
                     {
-                        "name": "[replace(parameters('originHostname'), '.', '-')]",
+                        "name": "[replace(parameters('originName'), '.', '-')]",
                         "properties": {
                             "hostName": "[parameters('originHostname')]"
                         }

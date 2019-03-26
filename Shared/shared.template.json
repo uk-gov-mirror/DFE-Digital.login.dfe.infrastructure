@@ -130,6 +130,31 @@
         "description": "Sku of the Azure Cdn Profile resource"
       }
     },
+    "cdnEndpointName": {
+      "type": "string"
+    },
+    "cdnProfileName": {
+      "type": "string"
+    },
+    "originName": {
+      "defaultValue": "Standard_Verizon",
+        "type": "string"
+    },
+    "originHostname": {
+      "type": "string"
+    },
+    "optimizationType": {
+      "defaultValue": "GeneralWebDelivery",
+      "type": "string"
+    },
+    "customDomainName": {
+      "defaultValue": "",
+      "type": "string"
+    },
+    "originPath": {
+      "defaultValue": "/ui-assets",
+      "type": "string"
+    },
     "CHGWIP": {
       "type": "string",
       "metadata": {
@@ -184,10 +209,10 @@
     "azureSearchTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/azure-search.json')]",
     "postgresTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/postgres.json')]",
     "azureCdnTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/azure-cdn.json')]",
+    "azureCdnEndpointTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/azure-cdn-endpoint.json')]",
     "certificateTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/app-service-certificate.json')]"
   },
-  "resources": [
-    {
+  "resources": [{
       "apiVersion": "2017-05-10",
       "name": "AppServicePlan",
       "type": "Microsoft.Resources/deployments",
@@ -412,6 +437,43 @@
           }
         }
       }
+    },
+    {
+      "name": "AzureCDNEndpoint",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-04-02",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('azureCdnEndpointTemplateUri')]"
+        },
+        "parameters": {
+          "cdnEndpointName": {
+            "value": "[parameters('cdnEndpointName')]"
+          },
+          "cdnProfileName": {
+            "value": "[parameters('cdnProfileName')]"
+          },
+          "originName": {
+            "value": "[parameters('originName')]"
+          },
+          "originHostname": {
+            "value": "[parameters('originHostname')]"
+          },
+          "optimizationType": {
+            "value": "[parameters('optimizationType')]"
+          },
+          "customDomainName": {
+            "value": "[parameters('customDomainName')]"
+          },
+          "originPath": {
+            "value": "[parameters('originPath')]"
+          }
+        }
+      },
+      "dependsOn": [
+        "StorageAccount"
+      ]
     },
     {
       "name": "[concat('AppServiceCertificates', copyIndex())]",
