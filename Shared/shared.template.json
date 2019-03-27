@@ -441,7 +441,7 @@
     {
       "name": "AzureCDNEndpoint",
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2017-10-12",
+      "apiVersion": "2019-03-01",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
