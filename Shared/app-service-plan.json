@@ -10,9 +10,13 @@
         },
         "appServicePlanSku": {
             "type": "object",
-            "metadata": {
-                "description": "The SKU to use when building the App Service Plan"
-            }
+            "defaultValue": {
+                "name": "S2",
+                "tier": "Standard",
+                "size": "S2",
+                "family": "S",
+                "capacity": 1
+              }
         },
         "appServicePlanOS": {
             "type": "string",

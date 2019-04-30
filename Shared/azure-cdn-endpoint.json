@@ -15,12 +15,14 @@
             "type": "string"
         },
         "optimizationType": {
+            "defaultValue": "GeneralWebDelivery",
             "type": "string"
         },
         "customDomainName": {
             "type": "string"
         },
         "originPath": {
+            "defaultValue": "/ui-assets",
             "type": "string"
         }
     },

@@ -9,20 +9,10 @@
     "appServicePlanName": {
       "type": "string"
     },
-    "appServicePlanSku": {
-      "type": "object",
-      "defaultValue": {
-        "name": "S2",
-        "tier": "Standard",
-        "size": "S2",
-        "family": "S",
-        "capacity": 1
-      }
-    },
     "appServicePlanOS": {
       "type": "string",
       "metadata": {
-        "description": "Windows or Linux"
+        "description": "Windows or Linux App Service Plan"
       }
     },
     "appServicePlanIsLinux": {
@@ -39,14 +29,6 @@
     },
     "redisCacheName": {
       "type": "string"
-    },
-    "redisCacheSku": {
-      "type": "object",
-      "defaultValue": {
-        "name": "Standard",
-        "family": "C",
-        "capacity": 1
-      }
     },
     "sqlAdministratorLogin": {
       "type": "string",
@@ -77,11 +59,6 @@
     },
     "transparentDataEncryption": {
       "type": "string",
-      "allowedValues": [
-        "Enabled",
-        "Disabled"
-      ],
-      "defaultValue": "Enabled",
       "metadata": {
         "description": "Enable or disable Transparent Data Encryption (TDE) for the database."
       }
@@ -94,7 +71,6 @@
     },
     "storageAccountType": {
       "type": "string",
-      "defaultValue": "Standard_RAGRS",
       "metadata": {
         "description": "Type of storage account to use"
       }
@@ -123,13 +99,6 @@
         "description": "Name of the Azure Cdn Profile resource"
       }
     },
-    "azureCdnSku": {
-      "type": "string",
-      "defaultValue": "Standard_Verizon",
-      "metadata": {
-        "description": "Sku of the Azure Cdn Profile resource"
-      }
-    },
     "cdnEndpointName": {
       "type": "string"
     },
@@ -137,14 +106,13 @@
       "type": "string"
     },
     "originName": {
-      "defaultValue": "Standard_Verizon",
+      "defaultValue": "",
         "type": "string"
     },
     "originHostname": {
       "type": "string"
     },
     "optimizationType": {
-      "defaultValue": "GeneralWebDelivery",
       "type": "string"
     },
     "customDomainName": {
@@ -152,7 +120,6 @@
       "type": "string"
     },
     "originPath": {
-      "defaultValue": "/ui-assets",
       "type": "string"
     },
     "CHGWIP": {
@@ -165,12 +132,6 @@
       "type": "string",
       "metadata": {
         "description": "Name of the postgres server"
-      }
-    },
-    "postgresSku": {
-      "type": "object",
-      "metadata": {
-        "description": "SKU for the postgres server"
       }
     },
     "postgresAdminLogin": {
@@ -225,9 +186,6 @@
           "appServicePlanName": {
             "value": "[parameters('appServicePlanName')]"
           },
-          "appServicePlanSku": {
-            "value": "[parameters('appServicePlanSku')]"
-          },
           "appServicePlanOS": {
             "value": "[parameters('appServicePlanOS')]"
           },
@@ -249,9 +207,6 @@
         "parameters": {
           "redisCacheName": {
             "value": "[parameters('redisCacheName')]"
-          },
-          "redisCacheSku": {
-            "value": "[parameters('redisCacheSku')]"
           }
         }
       }
@@ -404,9 +359,6 @@
           "postgresServerName": {
             "value": "[parameters('postgresServerName')]"
           },
-          "postgresSku": {
-            "value": "[parameters('postgresSku')]"
-          },
           "postgresAdminLogin": {
             "value": "[parameters('postgresAdminLogin')]"
           },
@@ -431,9 +383,6 @@
         "parameters": {
           "cdnProfileName": {
             "value": "[parameters('azureCdnName')]"
-          },
-          "cdnSKU": {
-            "value": "[parameters('azureCdnSku')]"
           }
         }
       }

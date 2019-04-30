@@ -6,7 +6,8 @@
             "type": "string"
         },
         "cdnSKU": {
-            "type": "string"
+            "type": "string",
+            "defaultValue": "Standard_Verizon"
         }
     },
     "variables": {},
