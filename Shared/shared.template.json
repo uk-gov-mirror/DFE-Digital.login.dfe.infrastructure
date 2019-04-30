@@ -9,12 +9,6 @@
     "appServicePlanName": {
       "type": "string"
     },
-    "appServicePlanSku": {
-      "type": "object",
-      "metadata": {
-        "description": "The SKU of the App Service Plan"
-      }
-    },
     "appServicePlanOS": {
       "type": "string",
       "metadata": {
@@ -35,12 +29,6 @@
     },
     "redisCacheName": {
       "type": "string"
-    },
-    "redisCacheSku": {
-      "type": "object",
-      "metadata": {
-        "description": ""
-      }
     },
     "sqlAdministratorLogin": {
       "type": "string",
@@ -111,12 +99,6 @@
         "description": "Name of the Azure Cdn Profile resource"
       }
     },
-    "azureCdnSku": {
-      "type": "string",
-      "metadata": {
-        "description": "Sku of the Azure Cdn Profile resource"
-      }
-    },
     "cdnEndpointName": {
       "type": "string"
     },
@@ -150,12 +132,6 @@
       "type": "string",
       "metadata": {
         "description": "Name of the postgres server"
-      }
-    },
-    "postgresSku": {
-      "type": "object",
-      "metadata": {
-        "description": "SKU for the postgres server"
       }
     },
     "postgresAdminLogin": {
@@ -210,9 +186,6 @@
           "appServicePlanName": {
             "value": "[parameters('appServicePlanName')]"
           },
-          "appServicePlanSku": {
-            "value": "[parameters('appServicePlanSku')]"
-          },
           "appServicePlanOS": {
             "value": "[parameters('appServicePlanOS')]"
           },
@@ -234,9 +207,6 @@
         "parameters": {
           "redisCacheName": {
             "value": "[parameters('redisCacheName')]"
-          },
-          "redisCacheSku": {
-            "value": "[parameters('redisCacheSku')]"
           }
         }
       }
@@ -389,9 +359,6 @@
           "postgresServerName": {
             "value": "[parameters('postgresServerName')]"
           },
-          "postgresSku": {
-            "value": "[parameters('postgresSku')]"
-          },
           "postgresAdminLogin": {
             "value": "[parameters('postgresAdminLogin')]"
           },
@@ -416,9 +383,6 @@
         "parameters": {
           "cdnProfileName": {
             "value": "[parameters('azureCdnName')]"
-          },
-          "cdnSKU": {
-            "value": "[parameters('azureCdnSku')]"
           }
         }
       }
