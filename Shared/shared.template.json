@@ -218,6 +218,9 @@
         "parameters": {
           "redisCacheName": {
             "value": "[parameters('redisCacheName')]"
+          },
+          "redisCacheSku": {
+            "value": "[parameters('redisCacheSku')]"
           }
         }
       }
@@ -366,6 +369,9 @@
         "parameters": {
           "postgresServerName": {
             "value": "[parameters('postgresServerName')]"
+          },
+          "postgresSku": {
+            "value": "[parameters('postgresSku')]"
           },
           "postgresAdminLogin": {
             "value": "[parameters('postgresAdminLogin')]"
