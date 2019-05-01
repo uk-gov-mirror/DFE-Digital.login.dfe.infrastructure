@@ -7,11 +7,7 @@
         },
         "redisCacheSku": {
             "type": "object",
-            "defaultValue": {
-                "name": "Standard",
-                "family": "C",
-                "capacity": 1
-            }
+            "defaultValue": ""
         }
     },
     "variables": {},

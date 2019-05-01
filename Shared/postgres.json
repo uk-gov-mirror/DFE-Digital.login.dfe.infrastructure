@@ -10,13 +10,7 @@
         },
         "postgresSku": {
             "type": "object",
-            "defaultValue": {
-                "name": "GP_Gen5_2",
-                "tier": "GeneralPurpose",
-                "size": 5120,
-                "family": "Gen5",
-                "capacity": 2
-            }
+            "defaultValue": ""
         },
         "postgresAdminLogin": {
             "type": "string"
