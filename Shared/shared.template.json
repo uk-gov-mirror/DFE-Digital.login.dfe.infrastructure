@@ -81,12 +81,6 @@
         "description": "Name of the storage account resource"
       }
     },
-    "storageAccountType": {
-      "type": "string",
-      "metadata": {
-        "description": "Type of storage account to use"
-      }
-    },
     "keyVaultName": {
       "type": "string",
       "metadata": {
