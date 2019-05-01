@@ -118,9 +118,6 @@
     "originHostname": {
       "type": "string"
     },
-    "optimizationType": {
-      "type": "string"
-    },
     "customDomainName": {
       "defaultValue": "",
       "type": "string"
@@ -417,9 +414,6 @@
           },
           "originHostname": {
             "value": "[parameters('originHostname')]"
-          },
-          "optimizationType": {
-            "value": "[parameters('optimizationType')]"
           },
           "customDomainName": {
             "value": "[parameters('customDomainName')]"
