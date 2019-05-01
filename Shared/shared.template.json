@@ -11,6 +11,7 @@
     },
     "appServicePlanSku": {
       "type": "object",
+      "defaultValue": "",
       "metadata": {
         "description": "The SKU of the App Service Plan"
       }
@@ -38,6 +39,7 @@
     },
     "redisCacheSku": {
       "type": "object",
+      "defaultValue": "",
       "metadata": {
         "description": ""
       }
@@ -136,6 +138,7 @@
     },
     "postgresSku": {
       "type": "object",
+      "defaultValue": "",
       "metadata": {
         "description": "SKU for the postgres server"
       }
