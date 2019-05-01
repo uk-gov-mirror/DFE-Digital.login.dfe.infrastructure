@@ -325,9 +325,6 @@
         "parameters": {
           "storageAccountName": {
             "value": "[parameters('storageAccountName')]"
-          },
-          "storageAccountType": {
-            "value": "[parameters('storageAccountType')]"
           }
         }
       },
