@@ -11,7 +11,6 @@
     },
     "appServicePlanSku": {
       "type": "object",
-      "defaultValue": "",
       "metadata": {
         "description": "The SKU of the App Service Plan"
       }
@@ -195,6 +194,9 @@
           "appServicePlanName": {
             "value": "[parameters('appServicePlanName')]"
           },
+          "appServicePlanSku": {
+            "value": "[parameters('appServicePlanSku')]"
+          },
           "appServicePlanOS": {
             "value": "[parameters('appServicePlanOS')]"
           },
@@ -216,6 +218,9 @@
         "parameters": {
           "redisCacheName": {
             "value": "[parameters('redisCacheName')]"
+          },
+          "redisCacheSku": {
+            "value": "[parameters('redisCacheSku')]"
           }
         }
       }
@@ -364,6 +369,9 @@
         "parameters": {
           "postgresServerName": {
             "value": "[parameters('postgresServerName')]"
+          },
+          "postgresSku": {
+            "value": "[parameters('postgresSku')]"
           },
           "postgresAdminLogin": {
             "value": "[parameters('postgresAdminLogin')]"
