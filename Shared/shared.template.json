@@ -194,6 +194,9 @@
           "appServicePlanName": {
             "value": "[parameters('appServicePlanName')]"
           },
+          "appServicePlanSku": {
+            "value": "[parameters('appServicePlanSku')]"
+          },
           "appServicePlanOS": {
             "value": "[parameters('appServicePlanOS')]"
           },
