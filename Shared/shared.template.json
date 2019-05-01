@@ -122,9 +122,6 @@
       "defaultValue": "",
       "type": "string"
     },
-    "originPath": {
-      "type": "string"
-    },
     "CHGWIP": {
       "type": "string",
       "metadata": {
@@ -417,9 +414,6 @@
           },
           "customDomainName": {
             "value": "[parameters('customDomainName')]"
-          },
-          "originPath": {
-            "value": "[parameters('originPath')]"
           }
         }
       },
