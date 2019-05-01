@@ -9,8 +9,7 @@
             }
         },
         "appServicePlanSku": {
-            "type": "object",
-            "defaultValue": ""
+            "type": "object"
         },
         "appServicePlanOS": {
             "type": "string",

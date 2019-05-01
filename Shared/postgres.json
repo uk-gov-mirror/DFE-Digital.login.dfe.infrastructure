@@ -9,8 +9,7 @@
             }
         },
         "postgresSku": {
-            "type": "object",
-            "defaultValue": ""
+            "type": "object"
         },
         "postgresAdminLogin": {
             "type": "string"
