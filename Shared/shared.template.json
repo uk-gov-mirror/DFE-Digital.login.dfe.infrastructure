@@ -4,7 +4,7 @@
   "parameters": {
     "templatesBaseUri": {
       "type": "string",
-      "defaultValue": "https://raw.githubusercontent.com/DFE-Digital/login.dfe.infrastructure/nsa-2701/"
+      "defaultValue": "https://raw.githubusercontent.com/DFE-Digital/login.dfe.infrastructure/tree/NSA-2701/"
     },
     "appServicePlanName": {
       "type": "string"
