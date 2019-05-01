@@ -210,9 +210,6 @@
           "appServicePlanName": {
             "value": "[parameters('appServicePlanName')]"
           },
-          "appServicePlanSku": {
-            "value": "[parameters('appServicePlanSku')]"
-          },
           "appServicePlanOS": {
             "value": "[parameters('appServicePlanOS')]"
           },
@@ -234,9 +231,6 @@
         "parameters": {
           "redisCacheName": {
             "value": "[parameters('redisCacheName')]"
-          },
-          "redisCacheSku": {
-            "value": "[parameters('redisCacheSku')]"
           }
         }
       }
@@ -389,9 +383,6 @@
           "postgresServerName": {
             "value": "[parameters('postgresServerName')]"
           },
-          "postgresSku": {
-            "value": "[parameters('postgresSku')]"
-          },
           "postgresAdminLogin": {
             "value": "[parameters('postgresAdminLogin')]"
           },
@@ -416,9 +407,6 @@
         "parameters": {
           "cdnProfileName": {
             "value": "[parameters('azureCdnName')]"
-          },
-          "cdnSKU": {
-            "value": "[parameters('azureCdnSku')]"
           }
         }
       }
