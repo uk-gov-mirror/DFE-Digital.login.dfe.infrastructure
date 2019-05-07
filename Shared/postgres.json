@@ -14,6 +14,9 @@
         "postgresAdminLogin": {
             "type": "string"
         },
+        "postgresVersion": {
+            "type": "string"
+        },
         "postgresAdminPassword": {
             "type": "securestring"
         },
@@ -36,7 +39,7 @@
                     "backupRetentionDays": 7,
                     "geoRedundantBackup": "Disabled"
                 },
-                "version": "9.6",
+                "version": "[parameters('postgresVersion')]",
                 "sslEnforcement": "Enabled",
                 "administratorLogin": "[parameters('postgresAdminLogin')]",
                 "administratorLoginPassword": "[parameters('postgresAdminPassword')]"

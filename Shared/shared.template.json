@@ -154,6 +154,12 @@
         "description": "Admin password for the postgres server"
       }
     },
+    "postgresVersion": {
+      "type": "string",
+      "metadata": {
+        "description": "Version of the postgres server"
+      }
+    },
     "postgresDatabases": {
       "type": "array",
       "metadata": {
@@ -378,6 +384,9 @@
           },
           "postgresAdminPassword": {
             "value": "[parameters('postgresAdminPassword')]"
+          },
+          "postgresVersion": {
+            "value": "[parameters('postgresVersion')]"
           },
           "postgresDatabases": {
             "value": "[parameters('postgresDatabases')]"
