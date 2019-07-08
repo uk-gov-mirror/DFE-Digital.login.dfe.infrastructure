@@ -107,7 +107,8 @@
           "copy": {
             "name": "certCopy",
             "count": "[length(parameters('keyvaultCertificateNames'))]"
-          }
+          },
+          "dependsOn": ["AppServicePlan"]
         }
     ],
     "outputs": {}
