@@ -30,10 +30,29 @@
             "metadata": {
                 "description": "Whether the App Service Plan is Linux or not"
             }
+        },
+        "keyVaultName": {
+          "type": "string",
+          "metadata": {
+            "description": "Name of the Key Vault resource"
+          }
+        },
+        "keyvaultCertificateNames": {
+          "type": "array",
+          "metadata": {
+            "description": "Names of the certificates stored in keyvault"
+          }
+        },
+        "keyVaultResourceGroup": {
+          "type": "string",
+          "metadata": {
+            "description": "Name of the Key Vault resource"
+          }
         }
     },
     "variables": {
-        "appServicePlanTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/app-service-plan.json')]"
+        "appServicePlanTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/app-service-plan.json')]",
+        "certificateTemplateUri": "[concat(parameters('templatesBaseUri'), 'Shared/app-service-certificate.json')]"
     },
     "resources": [
         {
@@ -63,6 +82,33 @@
                     }
                 }
             }
+        },
+        {
+          "name": "[concat('AppServiceCertificates', copyIndex())]",
+          "type": "Microsoft.Resources/deployments",
+          "apiVersion": "2014-04-01",
+          "properties": {
+            "mode": "Incremental",
+            "templateLink": {
+              "uri": "[variables('certificateTemplateUri')]"
+            },
+            "parameters": {
+              "keyVaultCertificateName": {
+                "value": "[parameters('keyvaultCertificateNames')[copyIndex()]]"
+              },
+              "keyVaultName": {
+                "value": "[parameters('keyVaultName')]"
+              },
+              "keyVaultResourceGroup": {
+                "value": "[parameters('keyVaultResourceGroup')]"
+              }
+            }
+          },
+          "copy": {
+            "name": "certCopy",
+            "count": "[length(parameters('keyvaultCertificateNames'))]"
+          },
+          "dependsOn": ["AppServicePlan"]
         }
     ],
     "outputs": {}
