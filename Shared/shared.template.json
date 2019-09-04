@@ -294,7 +294,7 @@
           "elasticPoolName": {
             "value": "[parameters('elasticPoolName')]"
           },
-          "databaseMaxSizeByes": {
+          "databaseMaxSizeBytes": {
             "value": "[parameters('databaseNames')[copyIndex()].maxSizeBytes]"
           }
         }
