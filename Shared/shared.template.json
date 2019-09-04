@@ -177,7 +177,6 @@
     },
     "elasticPoolProperties": {
       "type": "object",
-      "defaultValue": "",
       "metadata": {
         "description": "Properties for the elastic pool"
       }
