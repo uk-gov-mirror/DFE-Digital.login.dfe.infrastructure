@@ -68,7 +68,10 @@
       }
     },
     "databaseNames": {
-      "type": "array"
+      "type": "array",
+      "metadata": {
+        "description": "Azure DevOps variable format: [{\"name\":\"temp-signin-audit-db\",\"maxSizeBytes\":\"1073741824\"} N.B. use without backslash"
+      }
     },
     "transparentDataEncryption": {
       "type": "string",
@@ -171,6 +174,13 @@
       "metadata": {
         "description": "Names of the certificates stored in keyvault"
       }
+    },
+    "elasticPoolProperties": {
+      "type": "object",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Properties for the elastic pool"
+      }
     }
   },
   "variables": {
@@ -255,12 +265,15 @@
           },
           "CHGWIP": {
             "value": "[parameters('CHGWIP')]"
+          },
+          "elasticPoolProperties": {
+            "value": "[parameters('elasticPoolProperties')]"
           }
         }
       }
     },
     {
-      "name": "[parameters('databaseNames')[copyIndex()]]",
+      "name": "[parameters('databaseNames')[copyIndex()].name]",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2014-04-01",
       "properties": {
@@ -270,7 +283,7 @@
         },
         "parameters": {
           "databaseName": {
-            "value": "[parameters('databaseNames')[copyIndex()]]"
+            "value": "[parameters('databaseNames')[copyIndex()].name]"
           },
           "transparentDataEncryption": {
             "value": "[parameters('transparentDataEncryption')]"
@@ -280,6 +293,9 @@
           },
           "elasticPoolName": {
             "value": "[parameters('elasticPoolName')]"
+          },
+          "databaseMaxSizeByes": {
+            "value": "[parameters('databaseNames')[copyIndex()].maxSizeBytes]"
           }
         }
       },
