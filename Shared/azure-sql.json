@@ -31,6 +31,12 @@
       "metadata": {
         "description": "Firewall IP"
       }
+    },
+    "elasticPoolProperties": {
+      "type": "object",
+      "metadata": {
+        "description": "Properties of the Elasticpool: edition, dtu, databaseDtuMin, databaseDtuMax"
+      }
     }
   },
   "resources": [
@@ -79,12 +85,7 @@
           "apiVersion": "2014-04-01",
           "name": "[parameters('elasticPoolName')]",
           "location": "[resourceGroup().location]",
-          "properties": {
-            "edition": "Standard",
-            "dtu": "50",
-            "databaseDtuMin": "0",
-            "databaseDtuMax": "50"
-          },
+          "properties": "[parameters('elasticPoolProperties')]",
           "dependsOn": [
             "[concat('Microsoft.Sql/servers/', parameters('sqlserverName'))]"
           ]
