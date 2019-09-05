@@ -30,6 +30,13 @@
       "metadata": {
         "description": "SQL Server name to deploy the databases to"
       }
+    },
+    "databaseMaxSizeBytes": {
+      "type": "string",
+      "defaultValue": "1073741824",
+      "metadata": {
+        "description": "The maximum size of the database in bytes"
+      }
     }
   },
   "resources": [
@@ -43,7 +50,7 @@
       "apiVersion": "2014-04-01",
       "properties": {
         "collation": "SQL_Latin1_General_CP1_CI_AS",
-        "maxSizeBytes": "1073741824",
+        "maxSizeBytes": "[parameters('databaseMaxSizeBytes')]",
         "elasticPoolName": "[parameters('elasticPoolName')]"
       },
       "resources": [
