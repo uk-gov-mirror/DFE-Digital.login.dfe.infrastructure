@@ -12,6 +12,7 @@ IF NOT EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.TABLES where TABLE_NAME = 'AuditL
         environment varchar(255),
         type varchar(255),
         subType varchar(255),
+        userId uniqueidentifier,
         userId uniqueidentifier
     );
     CREATE INDEX level ON dbo.AuditLogs (level);
