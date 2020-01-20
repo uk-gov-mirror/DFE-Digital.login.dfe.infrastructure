@@ -13,7 +13,7 @@ IF NOT EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.TABLES where TABLE_NAME = 'AuditL
         type varchar(255),
         subType varchar(255),
         userId uniqueidentifier,
-        userId uniqueidentifier
+        organisationid uniqueidentifier
     );
     CREATE INDEX level ON dbo.AuditLogs (level);
     CREATE INDEX userId ON dbo.AuditLogs (userId);
