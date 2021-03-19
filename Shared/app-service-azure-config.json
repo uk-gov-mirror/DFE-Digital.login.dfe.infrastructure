@@ -90,6 +90,7 @@
                 "httpsOnly": true,
                 "siteConfig": {
                     "alwaysOn": true,
+                    "http20Enabled": true,
                     "minTlsVersion": "[parameters('minTlsVersion')]",
                     "numberOfWorkers": "[parameters('numberOfWorkers')]"
                 }
